@@ -10,6 +10,9 @@ inherited FrmBuscarProdutos: TFrmBuscarProdutos
     inherited Label1: TLabel
       StyleElements = [seFont, seClient, seBorder]
     end
+    inherited PngSdBBuscar: TPngSpeedButton
+      OnClick = PngSdBBuscarClick
+    end
     inherited EditNome: TEdit
       StyleElements = [seFont, seClient, seBorder]
     end

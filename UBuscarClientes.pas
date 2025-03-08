@@ -9,6 +9,7 @@ uses
 
 type
   TFrmBuscarCli = class(TFrmBuscarPrd)
+    procedure PngSdBBuscarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -19,7 +20,21 @@ var
   FrmBuscarCli: TFrmBuscarCli;
 
 implementation
-
+Uses UFacadeClientes;
 {$R *.dfm}
+
+procedure TFrmBuscarCli.PngSdBBuscarClick(Sender: TObject);
+var StrSQL:String;
+    Facade:TFacadeClientes;
+begin
+ //  inherited;
+  if Trim(EditNome.Text)<>EmptyStr  Then
+  Begin
+    StrSQL:= ' LIKE ''%'+EditNome.Text+'%''';
+    DSGrid.DataSet:=TDataSet(Facade.returnDataSetClientsWithLike('TB_CLIENTES', 'TBCLI_NOME',StrSQL));
+  End
+  Else
+    DSGrid.DataSet:=TDataSet(Facade.returnDataSetClientsWithLike('TB_CLIENTES', 'TBCLI_NOME',''));
+end;
 
 end.

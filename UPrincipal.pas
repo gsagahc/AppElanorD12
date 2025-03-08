@@ -290,7 +290,9 @@ var
 
 implementation
 
-uses uMensagens, Math,UParametrosConfig, UFacadeConfiguracoes, UCadPadrao,UCadProdutos;
+uses
+uMensagens, Math,UParametrosConfig, UFacadeConfiguracoes,
+UCadPadrao,UCadProdutos, uCadClientes;
    
 
 {$R *.dfm}
@@ -378,11 +380,11 @@ end;
 
 procedure TFrmPrincipal.Clientes1Click(Sender: TObject);
 begin
-//  Application.CreateForm(TFrmCadCli,FrmCadCli);
-//  StatusBar1.Panels.Items[5].Text:= FrmCadCli.Caption;
-//  FrmCadCli.ShowModal;
-//  FreeAndNil(FrmCadCli);
-//  StatusBar1.Panels.Items[5].Text:='';
+  Application.CreateForm(TFrmCadClientes,FrmCadClientes);
+  StatusBar1.Panels.Items[5].Text:= FrmCadClientes.Caption;
+  FrmCadClientes.ShowModal;
+  FreeAndNil(FrmCadClientes);
+  StatusBar1.Panels.Items[5].Text:='';
 end;
 
 procedure TFrmPrincipal.Prazos1Click(Sender: TObject);

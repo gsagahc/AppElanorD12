@@ -27,7 +27,7 @@ procedure TFrmBuscarProdutos.PngSdBBuscarClick(Sender: TObject);
 var StrSQL:String;
     Facade:TFacadeProducts;
 begin
-   inherited;
+ //  inherited;
   if Trim(EditNome.Text)<>EmptyStr  Then
   Begin
     StrSQL:= ' LIKE ''%'+EditNome.Text+'%''';

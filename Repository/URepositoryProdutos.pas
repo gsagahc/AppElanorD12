@@ -15,7 +15,7 @@ Type
    function generateCodProduct:String;
    function checkProductSameName(sName:String):Boolean;
    function checkIfProductHasBeenUsed(Id:String):Boolean;
-
+   procedure updateProductByID(StrUpdate:String);
   End;
 
 implementation
@@ -178,6 +178,30 @@ begin
     on E: EDatabaseError do
     begin
       tFrmMensagens.Mensagem('Erro ao realizar consulta.unit:URepositoryProdutos, Metodo:returnDataSetById','E',[mbOK], E.Message);
+
+    end;
+  end;
+end;
+
+procedure TRepositoryProdutos.updateProductByID(StrUpdate:String);
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add(StrUpdate);
+    Self.Database.DefaultTransaction.StartTransaction;
+    IBQueryResult.ExecSQL;
+    Self.Database.DefaultTransaction.Commit;
+    Self.Database.CloseDataSets;
+
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao tentar atualizar produto. unit:URepositoryProdutos, Metodo:updateProductByID','E',[mbOK], E.Message);
 
     end;
   end;

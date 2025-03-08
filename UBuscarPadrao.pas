@@ -24,6 +24,7 @@ type
     procedure PngSdBVoltarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
 
+
   private
     { Private declarations }
   public
@@ -39,6 +40,8 @@ implementation
 Uses  UMensagens, UPrincipal;
 
 {$R *.dfm}
+
+
 
 
 

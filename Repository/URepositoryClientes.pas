@@ -15,6 +15,7 @@ Type
    function checkProductSameName(sName:String):Boolean;
    function checkIfClienteHasBeenUsed(Id:String):Boolean;
    procedure updateCliente(strSql:String);
+   function returnDataSetClientsWithLike(sTable, sField,sText:String):TDataSet;
   End;
 
 implementation
@@ -65,6 +66,12 @@ begin
     end;
   end;
 
+end;
+
+function TRepositoryClientes.returnDataSetClientsWithLike(sTable, sField,
+  sText:String): TDataSet;
+begin
+  Result:=Self.returnDataSetWithLike(sTable, sField,   sText);
 end;
 
 procedure TRepositoryClientes.updateCliente(strSql: String);

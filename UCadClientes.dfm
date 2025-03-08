@@ -138,16 +138,20 @@ inherited FrmCadClientes: TFrmCadClientes
     end
     inherited FieldEdit1: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
+      Field = 'TBCLI_NOME'
     end
     inherited FieldEdit2: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
+      Field = 'TBCLI_CNPJ'
     end
     inherited FieldEdit3: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
+      Field = 'TBCLI_ENDERECO'
     end
     inherited FieldEdit5: TFieldEdit
       Top = 182
       StyleElements = [seFont, seClient, seBorder]
+      Field = 'TBCLI_BAIRRO'
       ExplicitTop = 182
     end
     inherited Id: TIdEdit
@@ -199,8 +203,8 @@ inherited FrmCadClientes: TFrmCadClientes
       CharCase = ecUpperCase
       ReadOnly = True
       TabOrder = 9
-      Field = 'TBPRD_CODIGO'
-      Table = 'TB_PRODUTOS'
+      Field = 'TBCLI_COMPLEMENTO'
+      Table = 'TB_CLIENTES'
     end
     object FieldEdit6: TFieldEdit
       Left = 16
@@ -210,7 +214,7 @@ inherited FrmCadClientes: TFrmCadClientes
       CharCase = ecUpperCase
       ReadOnly = True
       TabOrder = 10
-      Field = 'TBPRD_CODIGO'
+      Field = 'TBCLI_CIDADE'
       Table = 'TB_PRODUTOS'
     end
     object FieldEdit7: TFieldEdit
@@ -222,7 +226,7 @@ inherited FrmCadClientes: TFrmCadClientes
       ReadOnly = True
       TabOrder = 11
       Field = 'TBPRD_CODIGO'
-      Table = 'TB_PRODUTOS'
+      Table = 'TBCLI_TELEFONE'
     end
     object FieldSNRadioGroup1: TFieldSNRadioGroup
       Left = 16
@@ -241,6 +245,7 @@ inherited FrmCadClientes: TFrmCadClientes
         'N'#195'O')
       ParentFont = False
       TabOrder = 12
+      Table = 'TB_CLIENTES'
     end
     object FieldSNRadioGroup2: TFieldSNRadioGroup
       Left = 329
@@ -259,6 +264,7 @@ inherited FrmCadClientes: TFrmCadClientes
         'N'#195'O')
       ParentFont = False
       TabOrder = 13
+      Table = 'TB_CLIENTES'
     end
   end
 end

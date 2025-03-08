@@ -90,7 +90,7 @@ begin
   if Status='A' then
   begin
     strSql:=generateUpdateSQlFields;
-    Facade.updateProduct(StrSql);
+    Facade.updateProductByID(StrSql);
   end;
  inherited;
 

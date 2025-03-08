@@ -106,7 +106,7 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UnitSearchPath>C:\Projects\AppElanorNew;C:\Projects\AppElanorNew\Parametros;C:\Projects\AppElanorNew\DBConnect;C:\Projects\AppElanorNew\Utils;C:\Projects\AppElanorNew\Controller;C:\Projects\AppElanorNew\Facade;C:\Projects\AppElanorNew\Repository;C:\Components\Elanor;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>C:\Components\Elanor;C:\Projects\AppElanorD12\Controller;C:\Projects\AppElanorD12\DBConnect;C:\Projects\AppElanorD12\Facade;C:\Projects\AppElanorD12\Parametros;C:\Projects\AppElanorD12\Repository;C:\Projects\AppElanorD12\Utils;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -163,6 +163,9 @@
             <Form>FrmBuscarProdutos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Repository\uRepositoryPrazos.pas"/>
+        <DCCReference Include="Unit1.pas"/>
+        <DCCReference Include="Controller\UControllerPrazos.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

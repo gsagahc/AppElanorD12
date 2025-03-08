@@ -14,7 +14,7 @@ type
    function generateCodProduct:String;
    function checkProductSameName(sName:String):Boolean;
    function checkIfProductHasBeenUsed(Id:String):Boolean;
-    procedure updateProduct(strSql:String);
+   procedure updateProductByID(StrUpdate:String);
  end;
 implementation
   { TFacadeProducts }
@@ -76,14 +76,16 @@ var Controller:TControllerProducts;
 begin
   Controller:=TControllerProducts.Create;
   Result:=Controller.ReturnDataSetProductsWithLike(sTable,sField,sText);
-
+  Controller.Destroy;
 end;
 
-procedure TFacadeProducts.updateProduct(strSql: String);
+
+
+procedure TFacadeProducts.updateProductByID(StrUpdate: String);
 var Controller:TControllerProducts;
 begin
   Controller:=TControllerProducts.Create;
-  Controller.updateProduct(StrSql);
+  Controller.updateProductByID(StrUpdate);
   Controller.Destroy;
 
 end;

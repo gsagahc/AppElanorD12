@@ -14,7 +14,7 @@ Type
    function generateCodProduct:String;
    function checkProductSameName(sName:String):Boolean;
    function checkIfProductHasBeenUsed(Id:String):Boolean;
-   procedure updateProduct(strSql:String);
+   procedure updateProductByID(StrUpdate:String);
  end;
 
 implementation
@@ -84,12 +84,13 @@ begin
 
 end;
 
-procedure TControllerProducts.updateProduct(strSql: String);
+
+
+procedure TControllerProducts.updateProductByID(StrUpdate: String);
 var Repository:TRepositoryProdutos;
 begin
-//   Repository:=TRepositoryProdutos.Create;
-//   Repository.updateProduct(StrSql);
-//   Repository.Destroy;
+   Repository:=TRepositoryProdutos.Create;
+   Repository.updateProductByID(StrUpdate);
 
 end;
 

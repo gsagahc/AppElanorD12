@@ -13,7 +13,10 @@ uses
   UBuscarClientes in 'UBuscarClientes.pas' {FrmBuscarCli},
   URepositoryClientes in 'Repository\URepositoryClientes.pas',
   UBuscarPadrao in 'UBuscarPadrao.pas' {FrmBuscarPrd},
-  UBuscarProdutos in 'UBuscarProdutos.pas' {FrmBuscarProdutos};
+  UBuscarProdutos in 'UBuscarProdutos.pas' {FrmBuscarProdutos},
+  uRepositoryPrazos in 'Repository\uRepositoryPrazos.pas',
+  Unit1 in 'Unit1.pas',
+  UControllerPrazos in 'Controller\UControllerPrazos.pas';
 
 {$R *.res}
 
