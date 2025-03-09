@@ -164,8 +164,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Repository\uRepositoryPrazos.pas"/>
-        <DCCReference Include="Unit1.pas"/>
         <DCCReference Include="Controller\UControllerPrazos.pas"/>
+        <DCCReference Include="Facade\uFacadePrazos.pas"/>
+        <DCCReference Include="Class\UPrazo.pas"/>
+        <DCCReference Include="Controller\UController.pas"/>
+        <DCCReference Include="Facade\UFacade.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

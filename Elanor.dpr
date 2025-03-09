@@ -15,8 +15,11 @@ uses
   UBuscarPadrao in 'UBuscarPadrao.pas' {FrmBuscarPrd},
   UBuscarProdutos in 'UBuscarProdutos.pas' {FrmBuscarProdutos},
   uRepositoryPrazos in 'Repository\uRepositoryPrazos.pas',
-  Unit1 in 'Unit1.pas',
-  UControllerPrazos in 'Controller\UControllerPrazos.pas';
+  UControllerPrazos in 'Controller\UControllerPrazos.pas',
+  uFacadePrazos in 'Facade\uFacadePrazos.pas',
+  UPrazo in 'Class\UPrazo.pas',
+  UController in 'Controller\UController.pas',
+  UFacade in 'Facade\UFacade.pas';
 
 {$R *.res}
 

@@ -1,10 +1,10 @@
 unit UControllerClientes;
 
 interface
-Uses   DB;
+Uses   DB, uController;
 Type
 { Controller }
-  TControllerClientes = class
+  TControllerClientes = class(TController)
   public
     Function returnDataSetByID(id:String):TDataSet;
     function returnDataSetClientsWithLike(sTable,sField,sText:string):TDataSet;

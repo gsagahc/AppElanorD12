@@ -16,6 +16,7 @@ Type
    function checkIfPrazoHasBeenUsed(Id:String):Boolean;
    procedure updatePrazo(strSql:String);
    function returnDataSetAllPrazos:TDataSet;
+   function resultPrazoName(Id:string):string;
   End;
 implementation
 Uses UMensagens;
@@ -39,6 +40,30 @@ end;
 
 procedure TRepositoryPrazos.insertPrazo(sTrSql: String);
 begin
+
+end;
+
+function TRepositoryPrazos.resultPrazoName(Id: string): string;
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add('SELECT TBPRZ_NOME FROM TB_PRAZOS WHERE ID_PRAZO=:pId_prazo' );
+    IBQueryResult.ParamByName('pId_prazo').AsString:=id;
+    IBQueryResult.Open;
+
+    Result:=IBQueryResult.FieldByName('TBPRZ_NOME').AsString;
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao realizar consulta.unit:URepositoryPrazos, Metodo:resultPrazoName','E',[mbOK], E.Message);
+
+    end;
+  end;
 
 end;
 

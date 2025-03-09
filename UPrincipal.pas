@@ -174,6 +174,7 @@ type
     Configuraes1: TMenuItem;
     ToolBar1: TToolBar;
     PngImageListBotoes: TPngImageList;
+    PngImageCollection1: TPngImageCollection;
     procedure Produtos1Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton4Click(Sender: TObject);

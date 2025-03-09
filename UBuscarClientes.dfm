@@ -8,6 +8,11 @@ inherited FrmBuscarCli: TFrmBuscarCli
       Columns = <
         item
           Expanded = False
+          FieldName = 'ID_CLIENTE'
+          Visible = False
+        end
+        item
+          Expanded = False
           FieldName = 'TBCLI_NOME'
           Title.Caption = 'Nome'
           Title.Font.Charset = DEFAULT_CHARSET

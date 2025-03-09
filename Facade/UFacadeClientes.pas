@@ -1,10 +1,10 @@
 unit UFacadeClientes;
 
 interface
-Uses DB;
+Uses DB,UFacade;
 type
   { Façade }
-  TFacadeClientes = class
+  TFacadeClientes = class(TFacade)
   public
     // operação do Façade
    function returnDataSetByID(Id:String):TDataSet;

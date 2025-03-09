@@ -1,39 +1,22 @@
 inherited FrmCadClientes: TFrmCadClientes
   Caption = 'FrmCadClientes'
-  ClientHeight = 469
-  ClientWidth = 616
+  ClientHeight = 497
   StyleElements = [seFont, seClient, seBorder]
-  ExplicitWidth = 632
-  ExplicitHeight = 508
+  OnCreate = FormCreate
+  ExplicitHeight = 536
   TextHeight = 13
   inherited PnlBottom: TPanel
-    Top = 392
-    Width = 616
+    Top = 420
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 392
-    ExplicitWidth = 616
+    ExplicitTop = 420
     inherited PnlBotoes: TPanel
-      Left = 118
       StyleElements = [seFont, seClient, seBorder]
-      ExplicitLeft = 118
-      object PngSpeedButton1: TPngSpeedButton
-        Left = 422
-        Top = 7
-        Width = 65
-        Height = 57
-        ImageIndex = 1
-        Images = FrmPrincipal.PngImageListBotoes
-        StyleName = 'Windows'
-        OnClick = PngSdBLocalizarClick
-      end
     end
   end
   inherited PnlMain: TPanel
-    Width = 616
-    Height = 392
+    Height = 420
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitWidth = 616
-    ExplicitHeight = 392
+    ExplicitHeight = 420
     inherited Label1: TLabel
       Width = 93
       Caption = 'Nome do cliente'
@@ -136,22 +119,36 @@ inherited FrmCadClientes: TFrmCadClientes
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object PngSpeedButton1: TPngSpeedButton [11]
+      Left = 551
+      Top = 371
+      Width = 50
+      Height = 46
+      ImageIndex = 0
+      Images = PngImageList1
+      StyleName = 'Windows'
+      PngOptions = []
+    end
     inherited FieldEdit1: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
       Field = 'TBCLI_NOME'
+      Table = 'TB_CLIENTES'
     end
     inherited FieldEdit2: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
       Field = 'TBCLI_CNPJ'
+      Table = 'TB_CLIENTES'
     end
     inherited FieldEdit3: TFieldEdit
       StyleElements = [seFont, seClient, seBorder]
       Field = 'TBCLI_ENDERECO'
+      Table = 'TB_CLIENTES'
     end
     inherited FieldEdit5: TFieldEdit
       Top = 182
       StyleElements = [seFont, seClient, seBorder]
       Field = 'TBCLI_BAIRRO'
+      Table = 'TB_CLIENTES'
       ExplicitTop = 182
     end
     inherited Id: TIdEdit
@@ -159,17 +156,21 @@ inherited FrmCadClientes: TFrmCadClientes
       Top = 5
       Width = 59
       StyleElements = [seFont, seClient, seBorder]
+      Table = 'TB_CLIENTES'
+      Field = 'ID_CLIENTE'
       ExplicitLeft = 537
       ExplicitTop = 5
       ExplicitWidth = 59
     end
     inherited NumEditncm: TNumEdit
-      Left = 384
-      Top = 376
+      Left = -16
+      Top = 409
+      Width = 428
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
-      ExplicitLeft = 384
-      ExplicitTop = 376
+      ExplicitLeft = -16
+      ExplicitTop = 409
+      ExplicitWidth = 428
     end
     inherited NumEdit1: TNumEdit
       Left = 384
@@ -187,13 +188,19 @@ inherited FrmCadClientes: TFrmCadClientes
       ExplicitLeft = 384
       ExplicitTop = 498
     end
-    object FieldComboBox1: TFieldComboBox
+    object FieldComboBoxPrazos: TFieldComboBox
       Left = 16
       Top = 299
       Width = 577
-      Height = 21
+      Height = 22
+      Style = csOwnerDrawFixed
+      Enabled = False
       TabOrder = 8
-      Text = 'FieldComboBox1'
+      Field = 'ID_PRAZO'
+      Table = 'TB_CLIENTES'
+      Lookup = 'ID_PRAZO'
+      Result = 'TBPRZ_NOME'
+      LookupTable = 'TB_PRAZOS'
     end
     object FieldEdit4: TFieldEdit
       Left = 16
@@ -215,7 +222,7 @@ inherited FrmCadClientes: TFrmCadClientes
       ReadOnly = True
       TabOrder = 10
       Field = 'TBCLI_CIDADE'
-      Table = 'TB_PRODUTOS'
+      Table = 'TB_CLIENTES'
     end
     object FieldEdit7: TFieldEdit
       Left = 16
@@ -225,14 +232,14 @@ inherited FrmCadClientes: TFrmCadClientes
       CharCase = ecUpperCase
       ReadOnly = True
       TabOrder = 11
-      Field = 'TBPRD_CODIGO'
-      Table = 'TBCLI_TELEFONE'
+      Field = 'TBCLI_TELEFONE'
+      Table = 'TB_CLIENTES'
     end
     object FieldSNRadioGroup1: TFieldSNRadioGroup
       Left = 16
-      Top = 326
+      Top = 327
       Width = 264
-      Height = 52
+      Height = 46
       Caption = 'Utiliza Boleto'
       Columns = 2
       Font.Charset = DEFAULT_CHARSET
@@ -245,13 +252,14 @@ inherited FrmCadClientes: TFrmCadClientes
         'N'#195'O')
       ParentFont = False
       TabOrder = 12
+      Field = 'TBCLI_BOLETO'
       Table = 'TB_CLIENTES'
     end
     object FieldSNRadioGroup2: TFieldSNRadioGroup
-      Left = 329
-      Top = 326
+      Left = 286
+      Top = 327
       Width = 264
-      Height = 52
+      Height = 46
       Caption = 'Utiliza controle de lotes'
       Columns = 2
       Font.Charset = DEFAULT_CHARSET
@@ -264,7 +272,17 @@ inherited FrmCadClientes: TFrmCadClientes
         'N'#195'O')
       ParentFont = False
       TabOrder = 13
+      Field = 'TBCLI_SNLOTE'
       Table = 'TB_CLIENTES'
     end
+  end
+  object PngImageList1: TPngImageList
+    DrawingStyle = dsFocus
+    Height = 128
+    Width = 128
+    Scaled = True
+    PngImages = <>
+    Left = 496
+    Top = 368
   end
 end

@@ -6,11 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UCadPadrao, Data.DB, NumEdit, IdEdit,
   Vcl.StdCtrls, FieldEdit, Vcl.Buttons, PngSpeedButton, Vcl.ExtCtrls,
-  FieldComboBox, FieldSNRadioGroup;
+  FieldComboBox, FieldSNRadioGroup, System.ImageList, Vcl.ImgList, PngImageList;
 
 type
   TFrmCadClientes = class(TFrmCadPadrao)
-    FieldComboBox1: TFieldComboBox;
+    FieldComboBoxPrazos: TFieldComboBox;
     Label8: TLabel;
     Label9: TLabel;
     FieldEdit4: TFieldEdit;
@@ -18,10 +18,13 @@ type
     FieldEdit6: TFieldEdit;
     Label11: TLabel;
     FieldEdit7: TFieldEdit;
-    PngSpeedButton1: TPngSpeedButton;
     FieldSNRadioGroup1: TFieldSNRadioGroup;
     FieldSNRadioGroup2: TFieldSNRadioGroup;
+    PngSpeedButton1: TPngSpeedButton;
+    PngImageList1: TPngImageList;
     procedure PngSdBLocalizarClick(Sender: TObject);
+    procedure loadComboboxPrazos;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,8 +35,40 @@ var
   FrmCadClientes: TFrmCadClientes;
 
 implementation
-Uses UBuscarClientes, UFacadeClientes;
+Uses UFacadePrazos, UBuscarClientes, uFacadeClientes, uMensagens, UPrazo;
 {$R *.dfm}
+
+procedure TFrmCadClientes.FormCreate(Sender: TObject);
+begin
+  inherited;
+  loadComboboxPrazos;
+end;
+
+procedure TFrmCadClientes.loadComboboxPrazos;
+var FacadePrz:TFacadePrazos;
+    DataSetPrz:TDataSet;
+    Prazo:TPrazo;
+begin
+  try
+    FacadePrz:=TFacadePrazos.Create;
+    DataSetPrz:=FacadePrz.returnDataSetAllPrazos;
+    //Preencher combobox
+    While not DataSetPrz.Eof do
+    begin
+      Prazo:=TPrazo.Create(DataSetPrz.FieldByName('ID_PRAZO').AsInteger,
+                           DataSetPrz.FieldByName('TBPRZ_PRAZO01').AsInteger,
+                           DataSetPrz.FieldByName('TBPRZ_PRAZO02').AsInteger,
+                           DataSetPrz.FieldByName('TBPRZ_PRAZO03').AsInteger,
+                           DataSetPrz.FieldByName('TBPRZ_NOME').AsString);
+      FieldComboBoxPrazos.Items.AddObject(Prazo.Nome, Prazo);
+      DataSetPrz.Next;
+    end;
+  except
+
+    tFrmMensagens.Mensagem('Erro ao efetuar carregamento do combobox de prazos.unit:uCadClientes, Metodo:loadComboboxPrazos','E',[mbOK]);
+
+  end;
+end;
 
 procedure TFrmCadClientes.PngSdBLocalizarClick(Sender: TObject);
 Var Facade:TFacadeClientes;
@@ -44,8 +79,8 @@ begin
   FrmBuscarCli.ShowModal;
   If FrmBuscarCli.IdItem <> 0  Then
   begin
-    DSProdutos.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarCli.IdItem));
-    getFieldData(DSProdutos.DataSet);
+    DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarCli.IdItem));
+    getFieldData(DSPadrao.DataSet);
     StatusBotoes;
 
   End;

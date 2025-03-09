@@ -63,8 +63,8 @@ begin
   FrmBuscarProdutos.ShowModal;
   If FrmBuscarProdutos.IdItem <> 0  Then
   begin
-    DSProdutos.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarProdutos.IdItem));
-    getFieldData(DSProdutos.DataSet);
+    DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarProdutos.IdItem));
+    getFieldData(DSPadrao.DataSet);
     StatusBotoes;
 
   End;

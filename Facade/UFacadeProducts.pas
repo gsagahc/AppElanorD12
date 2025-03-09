@@ -1,10 +1,10 @@
 unit UFacadeProducts;
 
 interface
-Uses DB, System.Classes, UControllerProducts;
+Uses DB, System.Classes, UControllerProducts, UFacade;
 type
   { Façade }
-  TFacadeProducts = class
+  TFacadeProducts = class(TFacade)
   private
   public
    function ReturnDataSetProductsWithLike(sTable,sField,sText:string):TDataSet;

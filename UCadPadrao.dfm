@@ -288,7 +288,7 @@ object FrmCadPadrao: TFrmCadPadrao
       Table = 'TB_PRODUTOS'
     end
   end
-  object DSProdutos: TDataSource
+  object DSPadrao: TDataSource
     Left = 256
     Top = 88
   end

@@ -13,6 +13,7 @@ Type
     Conexao:TConnectDataBase;
     constructor  create;
      function ReturnDataSetWithLike(sTable,sField,sText:string):TDataSet;
+     function LookupResult(Id,LookupTable,LookupField,ResultField:string):string;
   end;
 
 implementation
@@ -30,6 +31,30 @@ begin
    Conexao.ConnectDataBase(sCaminho);
    Database:=Conexao.DbMain;
 
+end;
+
+function TRepository.LookupResult(Id, LookupTable, LookupField,
+  ResultField: string): string;
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add('SELECT '+ResultField+'FROM '+LookupTable+ ' WHERE '+LookupField+'=:pId' );
+    IBQueryResult.ParamByName('pId').AsString:=Id;
+    IBQueryResult.Open;
+
+    Result:=IBQueryResult.FieldByName(ResultField).AsString;
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao realizar consulta.','E',[mbOK], E.Message);
+
+    end;
+  end;
 end;
 
 function TRepository.ReturnDataSetWithLike(sTable,sField,sText: string): TDataSet;

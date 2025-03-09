@@ -13,7 +13,7 @@ type
   TFrmCadPadrao = class(TForm)
     PnlBottom: TPanel;
     PnlBotoes: TPanel;
-    DSProdutos: TDataSource;
+    DSPadrao: TDataSource;
     PnlMain: TPanel;
     Label1: TLabel;
     Label2: TLabel;
@@ -63,7 +63,7 @@ var
   FrmCadPadrao: TFrmCadPadrao;
 
 implementation
-Uses UPrincipal, UBuscarProdutos, uMensagens, Math;
+Uses UPrincipal, UBuscarProdutos, uMensagens, Math, UFacade;
 
 {$R *.dfm}
 
@@ -245,6 +245,7 @@ var i:Integer;
     NumEdit:TNumEdit;
     FieldComboBox:TFieldComboBox;
     FieldRadioGroup:TFieldSNRadioGroup;
+    Facade:TFacade;
 begin
   For i:=0 to Self.ComponentCount -1 do
   begin
@@ -273,8 +274,12 @@ begin
       FieldComboBox:= (Self.Components[i] as TFieldComboBox);
       if FieldComboBox.Visible then
       begin
-        FieldComboBox.Text:=DataSet.FieldByName(FieldComboBox.Field).AsString;
-        FieldComboBox.ItemIndex:=FieldComboBox.Items.IndexOf(DataSet.FieldByName(FieldComboBox.Field).AsString);
+        Facade:=TFacade.Create;
+        FieldComboBox.Text:=Facade.LookupResult(DataSet.FieldByName(FieldComboBox.Field).AsString,
+                                               (FieldComboBox.LookupTable,
+                                                FieldComboBox.Lookup,
+                                                FieldComboBox.Result);
+        FieldComboBox.ItemIndex:=FieldComboBox.Items.IndexOf(FieldComboBox.Text);
       end;
 
     End;
