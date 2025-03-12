@@ -3,6 +3,7 @@ inherited FrmCadClientes: TFrmCadClientes
   ClientHeight = 497
   StyleElements = [seFont, seClient, seBorder]
   OnCreate = FormCreate
+  ExplicitTop = -85
   ExplicitHeight = 536
   TextHeight = 13
   inherited PnlBottom: TPanel
@@ -155,6 +156,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Left = 537
       Top = 5
       Width = 59
+      TabOrder = 13
       StyleElements = [seFont, seClient, seBorder]
       Table = 'TB_CLIENTES'
       Field = 'ID_CLIENTE'
@@ -166,6 +168,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Left = -16
       Top = 409
       Width = 428
+      TabOrder = 10
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = -16
@@ -175,6 +178,7 @@ inherited FrmCadClientes: TFrmCadClientes
     inherited NumEdit1: TNumEdit
       Left = 384
       Top = 458
+      TabOrder = 11
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 384
@@ -183,6 +187,7 @@ inherited FrmCadClientes: TFrmCadClientes
     inherited NumEdit2: TNumEdit
       Left = 384
       Top = 498
+      TabOrder = 12
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 384
@@ -195,7 +200,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Height = 22
       Style = csOwnerDrawFixed
       Enabled = False
-      TabOrder = 8
+      TabOrder = 7
       Field = 'ID_PRAZO'
       Table = 'TB_CLIENTES'
       Lookup = 'ID_PRAZO'
@@ -209,7 +214,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Height = 21
       CharCase = ecUpperCase
       ReadOnly = True
-      TabOrder = 9
+      TabOrder = 3
       Field = 'TBCLI_COMPLEMENTO'
       Table = 'TB_CLIENTES'
     end
@@ -220,7 +225,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Height = 21
       CharCase = ecUpperCase
       ReadOnly = True
-      TabOrder = 10
+      TabOrder = 5
       Field = 'TBCLI_CIDADE'
       Table = 'TB_CLIENTES'
     end
@@ -231,7 +236,7 @@ inherited FrmCadClientes: TFrmCadClientes
       Height = 21
       CharCase = ecUpperCase
       ReadOnly = True
-      TabOrder = 11
+      TabOrder = 6
       Field = 'TBCLI_TELEFONE'
       Table = 'TB_CLIENTES'
     end
@@ -251,7 +256,7 @@ inherited FrmCadClientes: TFrmCadClientes
         'SIM'
         'N'#195'O')
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 8
       Field = 'TBCLI_BOLETO'
       Table = 'TB_CLIENTES'
     end
@@ -271,7 +276,7 @@ inherited FrmCadClientes: TFrmCadClientes
         'SIM'
         'N'#195'O')
       ParentFont = False
-      TabOrder = 13
+      TabOrder = 9
       Field = 'TBCLI_SNLOTE'
       Table = 'TB_CLIENTES'
     end

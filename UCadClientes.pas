@@ -25,6 +25,7 @@ type
     procedure PngSdBLocalizarClick(Sender: TObject);
     procedure loadComboboxPrazos;
     procedure FormCreate(Sender: TObject);
+    procedure PngSdBSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,6 +86,25 @@ begin
 
   End;
   FrmBuscarCli.Free;
+end;
+
+procedure TFrmCadClientes.PngSdBSalvarClick(Sender: TObject);
+var Facade:TFacadeClientes;
+    strSql:String;
+begin
+
+  if Status='I' then
+  begin
+    strSql:=generateInsertSQlFields;
+    Facade.insertClient(strSql);
+  end;
+  if Status='A' then
+  begin
+    strSql:=generateUpdateSQlFields;
+    Facade.updateClientByID(StrSql);
+  end;
+  inherited;
+
 end;
 
 end.

@@ -69,6 +69,7 @@ Uses UPrincipal, UBuscarProdutos, uMensagens, Math, UFacade;
 
 procedure TFrmCadPadrao.PngSdBCancelarClick(Sender: TObject);
 begin
+  clearFields;
   StatusBotoes;
 end;
 
@@ -189,20 +190,29 @@ begin
   slValues.StrictDelimiter:=True;
   For i:=0 to Self.ComponentCount -1 do
   begin
-    If (Self.Components[i] is TFieldEdit) Then
+    If (Self.Components[i] is TFieldEdit)  Then
     Begin
-      slFields.Add((Self.Components[i] as TFieldEdit).Field);
-      slValues.Add(''''+(Self.Components[i] as TFieldEdit).Text+'''');
+      if (Self.Components[i] as TFieldEdit).Visible then
+      begin
+        slFields.Add((Self.Components[i] as TFieldEdit).Field);
+        slValues.Add(''''+(Self.Components[i] as TFieldEdit).Text+'''');
+      end;
     End;
     If (Self.Components[i] is TFieldComboBox) Then
     Begin
-      slFields.Add((Self.Components[i] as TFieldComboBox).Field);
-      slValues.Add(''''+(Self.Components[i] as TFieldComboBox).Text+'''');
+      if  (Self.Components[i] as TFieldComboBox).Visible then
+      begin
+        slFields.Add((Self.Components[i] as TFieldComboBox).Field);
+        slValues.Add(''''+(Self.Components[i] as TFieldComboBox).Text+'''');
+      end;
     End;
     If (Self.Components[i] is TNumEdit) Then
     Begin
-      slFields.Add((Self.Components[i] as TNumEdit).Field);
-      slValues.Add(''''+(Self.Components[i] as TNumEdit).Text+'''');
+      if (Self.Components[i] as TNumEdit).Visible then
+      begin
+        slFields.Add((Self.Components[i] as TNumEdit).Field);
+        slValues.Add(''''+(Self.Components[i] as TNumEdit).Text+'''');
+      end;
     End;
   end;
   if slValues.DelimitedText <> EmptyStr then
@@ -246,6 +256,7 @@ var i:Integer;
     FieldComboBox:TFieldComboBox;
     FieldRadioGroup:TFieldSNRadioGroup;
     Facade:TFacade;
+    CBoxText:String;
 begin
   For i:=0 to Self.ComponentCount -1 do
   begin
@@ -275,11 +286,12 @@ begin
       if FieldComboBox.Visible then
       begin
         Facade:=TFacade.Create;
-        FieldComboBox.Text:=Facade.LookupResult(DataSet.FieldByName(FieldComboBox.Field).AsString,
-                                               (FieldComboBox.LookupTable,
+        CBoxText:=Facade.LookupResult(DataSet.FieldByName(FieldComboBox.Field).AsString,
+                                                FieldComboBox.LookupTable,
                                                 FieldComboBox.Lookup,
                                                 FieldComboBox.Result);
-        FieldComboBox.ItemIndex:=FieldComboBox.Items.IndexOf(FieldComboBox.Text);
+
+        FieldComboBox.ItemIndex:=FieldComboBox.Items.IndexOf(CBoxText);
       end;
 
     End;
@@ -332,7 +344,7 @@ begin
     If (Self.Components[i] is TFieldComboBox) Then
     Begin
       FieldComboBox:= (Self.Components[i] as TFieldComboBox);
-      FieldComboBox.Clear;
+      FieldComboBox.ItemIndex:=-1;
 
     End;
 

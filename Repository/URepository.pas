@@ -43,7 +43,7 @@ begin
     IBQueryResult.FetchAll;
     IBQueryResult.Database:=Self.Database;
     IBQueryResult.SQL.Clear;
-    IBQueryResult.SQL.Add('SELECT '+ResultField+'FROM '+LookupTable+ ' WHERE '+LookupField+'=:pId' );
+    IBQueryResult.SQL.Add('SELECT '+ResultField+' FROM '+LookupTable+ ' WHERE '+LookupField+'=:pId' );
     IBQueryResult.ParamByName('pId').AsString:=Id;
     IBQueryResult.Open;
 

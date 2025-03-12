@@ -16,6 +16,7 @@ Type
    function checkIfClienteHasBeenUsed(Id:String):Boolean;
    procedure updateCliente(strSql:String);
    function returnDataSetClientsWithLike(sTable, sField,sText:String):TDataSet;
+   procedure updateClientByID(StrUpdate:String);
   End;
 
 implementation
@@ -41,7 +42,27 @@ begin
 end;
 
 procedure TRepositoryClientes.insertClientes(sTrSql: String);
+var IBQueryResult:TIBQuery;
 begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add(sTrSql);
+    Self.Database.DefaultTransaction.StartTransaction;
+    IBQueryResult.ExecSQL;
+    Self.Database.DefaultTransaction.Commit;
+    Self.Database.CloseDataSets;
+
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao tentar inserir cliente. unit:URepositoryClientes, Metodo:insertClientes','E',[mbOK], E.Message);
+
+    end;
+  end;
 
 end;
 
@@ -72,6 +93,31 @@ function TRepositoryClientes.returnDataSetClientsWithLike(sTable, sField,
   sText:String): TDataSet;
 begin
   Result:=Self.returnDataSetWithLike(sTable, sField,   sText);
+end;
+
+procedure TRepositoryClientes.updateClientByID(StrUpdate: String);
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add(StrUpdate);
+    Self.Database.DefaultTransaction.StartTransaction;
+    IBQueryResult.ExecSQL;
+    Self.Database.DefaultTransaction.Commit;
+    Self.Database.CloseDataSets;
+
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao tentar atualizar cadastro de cliente. unit:URepositoryClientes, Metodo:updateClientByID','E',[mbOK], E.Message);
+
+    end;
+  end;
+
 end;
 
 procedure TRepositoryClientes.updateCliente(strSql: String);
