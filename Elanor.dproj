@@ -169,6 +169,7 @@
         <DCCReference Include="Class\UPrazo.pas"/>
         <DCCReference Include="Controller\UController.pas"/>
         <DCCReference Include="Facade\UFacade.pas"/>
+        <DCCReference Include="Class\UStandardObject.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

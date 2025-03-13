@@ -3,7 +3,6 @@ inherited FrmCadClientes: TFrmCadClientes
   ClientHeight = 497
   StyleElements = [seFont, seClient, seBorder]
   OnCreate = FormCreate
-  ExplicitTop = -85
   ExplicitHeight = 536
   TextHeight = 13
   inherited PnlBottom: TPanel

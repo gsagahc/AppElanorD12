@@ -12,76 +12,6 @@ uses
   System.ImageList, IBX.IBStoredProc, IBX.IBCustomDataSet, IBX.IBQuery,
   IBX.IBSQL, IBX.IBDatabase, UConnectDataBase, PngImageList;
 
-type
-  TPagamentosPHoje = class
-  Vencimento: TDate;
-  Emissao:TDate;
-  Fornecedor:String;
-  Valor: Currency;
-  NumNota:string;
-  ValorNota:Currency;
-end;
-
-type TRecebimentoHoje= class
-     public
-     Numped:string;
-     Vencimento:TDate;
-     ValorTotal:Currency;
-     Valor:Currency;
-     NomeCli:String;
-     DataPedido:TDate;
-end;
-Type TProduto= class
-     public
-     Nome:String;
-     Id:Integer;
-     Preco:currency;
-     Unidade:String;
-end;
-
-Type TCliente= class
-     public
-     Nome:String;
-     Id:Integer;
-     Endereco:String;
-     Cidade:String;
-     Estado:String;
-end;
-
-Type TPedido = Class
-     public
-     NomeCli:String;
-     Id_pedido:Integer;
-     NomeProd:String;
-     Id_produto:Integer;  
-End;
-Type TPrazos = Class
-     public
-     Nome:String;
-     Id_prazo:Integer;
-     Prazo1:TDate;
-     Prazo2:TDate;
-     Prazo3:TDate;
-End;
-Type TEstoque = Class
-     Public
-     Nome:String;
-     Id_produto:Integer;
-     Id_estoque:Integer;
-     Quantidade:Real;
-     Tamanho:string;
-     Formato:String;
-     Unidade:String; 
-End;
-
-Type TEndereco = Class
-      Public
-      Rua:String;
-      Bairro:String;
-      Cidade:String;
-      Estado:String;
-
-End;
 
 type
   TFrmPrincipal = class(TForm)
@@ -213,7 +143,6 @@ type
     procedure OnMessageOwn(var Msg: TMsg; var Handled: Boolean);
     procedure abeladepreos1Click(Sender: TObject);
     procedure Pedidosavista1Click(Sender: TObject);
-    procedure AtualizarTvContaRec;
     procedure TViewContasDblClick(Sender: TObject);
     procedure Pedidoscancelados1Click(Sender: TObject);
     procedure Exibirrecebimentosemaberto1Click(Sender: TObject);
@@ -270,16 +199,13 @@ type
     NomeProduto:String;
     BancoDados:String;
     id_fornecedor: Integer;
-    Cliente:TCliente;
     id_contapagar:Integer;
     bUtilizaContaRec:Boolean;
     Conexao:TConnectDataBase;
     sCaminho:String;
     Procedure Memo_Print(Conteudo:TStrings);
-    Function RetornaEndereco(CEP:String): TEndereco;
     function  AbreviarNome(Nome:string):String;
     function retornaMespExtenso(mes:string):string;
-    procedure atualizarTreeView;
     procedure atualizaMovimentacao(idProduto,IdPedido:integer;
             Quantidade, Tamanho:Real;Tipo,Formato:String);
 
@@ -618,9 +544,7 @@ begin
 end;
 
 
-function TFrmPrincipal.RetornaEndereco(CEP: String): TEndereco;
-begin
-end;
+
 
 procedure TFrmPrincipal.Vendas1Click(Sender: TObject);
 begin
@@ -768,39 +692,6 @@ begin
 //  StatusBar1.Panels.Items[5].Text:='';
 end;
 
-procedure TFrmPrincipal.AtualizarTvContaRec;
-Var RecebimentosHoje:TRecebimentoHoje;
-begin
-//  if Not IBTMain.Active then
-//    IBTMain.StartTransaction;
-//  TViewContas.Items.Clear;
-//  IBSQLUTIL.Close;
-//  IBSQLUTIL.SQL.Clear;
-//  IBSQLUTIL.SQL.Add('SELECT * FROM TB_CONTAREC '+
-//                    ' INNER JOIN TB_PEDIDOS '+
-//                     ' ON TB_PEDIDOS.ID_PEDIDO=TB_CONTAREC.id_pedido '+
-//                    ' WHERE TBCONTAREC_VENCIMENTO <= :pHoje '+
-//                      ' AND (TBCONTAREC_STATUS <> ''PG'' )');
-//  IBSQLUTIL.Close;
-//  IBSQLUTIL.ParamByName('pHoje').AsString:=FormatDateTime('dd/mm/yyyy', Now());
-//  IBSQLUTIL.ExecQuery;
-//  While not IBSQLUTIL.Eof do
-//  begin
-//      RecebimentosHoje :=TRecebimentoHoje.Create;
-//      RecebimentosHoje.Numped     := IBSQLUTIL.FieldByName('TBPED_NUMPED').AsString ;
-//      RecebimentosHoje.Vencimento := IBSQLUTIL.FieldByName('TBCONTAREC_VENCIMENTO').AsDate ;
-//      RecebimentosHoje.ValorTotal := IBSQLUTIL.FieldByName('TBCONTAREC_VALORTOTAL').AsCurrency ;
-//      RecebimentosHoje.Valor      := IBSQLUTIL.FieldByName('TBCONTAREC_VALOR').AsCurrency ;
-//      RecebimentosHoje.NomeCli    := IBSQLUTIL.FieldByName('TBPED_NOME').AsString  ;
-//      RecebimentosHoje.DataPedido := IBSQLUTIL.FieldByName('TBPED_DATA').AsDate ;
-//      TViewContas.Items.AddObject(Nil,RecebimentosHoje.Numped +' '+RecebimentosHoje.NomeCli  ,RecebimentosHoje);
-//      IBSQLUTIL.Next;
-//    end;
-//  If TViewContas.Items.Count > 0 Then
-//    PanelContaRec.Visible :=True
-//  else
-//    PanelContaRec.Visible :=False;
-end;
 
 procedure TFrmPrincipal.TViewContasDblClick(Sender: TObject);
 begin
@@ -850,47 +741,6 @@ begin
    Message.Result := 0;
 end;
 
-procedure TFrmPrincipal.atualizarTreeView;
-Var PagamentosHoje:TPagamentosPHoje;
-begin
-//  TreeViewContaPag.Items.Clear;
-//  IBQUtil1.Close;
-//  IBQUtil1.SQL.Clear;
-//  IBQUtil1.SQL.Add(' SELECT   ID_CONTASPAGAR, '+
-//                             'TBCONT_NUMNOTA, '+
-//                             'TBCONT_EMISSAO, '+
-//                             'TB_CONTASPAGAR.ID_FORNECEDOR, '+
-//                             'TBCONT_VALORNOTA, '+
-//                             'TBCONT_VENCIMENTO,  '+
-//                             'TBCONT_VALOR,  '+
-//                             'TBFOR_NOME  '+
-//                   ' FROM TB_CONTASPAGAR '+
-//                   ' INNER JOIN TB_FORNECEDORES '+
-//                   ' ON TB_FORNECEDORES.ID_FORNECEDOR= TB_CONTASPAGAR.ID_FORNECEDOR '+
-//                   ' WHERE TBCONT_VENCIMENTO <=:pHoje '+
-//                   ' AND (TBCONT_STATUS<>''PG'' or TBCONT_STATUS IS NULL) ');
-//
-//  IBQUtil1.ParamByName('pHoje').AsString:=FormatDateTime('dd/mm/yyyy', Now());
-//  IBQUtil1.Open;
-// // Panel1.Visible:=False;
-//  if Not IBQUtil1.IsEmpty then
-//  begin
-//    IBQUtil1.First;
-//    While not IBQUtil1.Eof do
-//    begin
-//      PagamentosHoje :=TPagamentosPHoje.Create;
-//      PagamentosHoje.Emissao    := IBQUtil1.FieldByName('TBCONT_EMISSAO').AsDateTime;
-//      PagamentosHoje.NumNota    := IBQUtil1.FieldByName('TBCONT_NUMNOTA').AsString;
-//      PagamentosHoje.Fornecedor := IBQUtil1.FieldByName('TBFOR_NOME').AsString;
-//      PagamentosHoje.Vencimento := IBQUtil1.FieldByName('TBCONT_VENCIMENTO').AsDateTime;
-//      PagamentosHoje.Valor      := IBQUtil1.FieldByName('TBCONT_VALOR').AsCurrency ;
-//      PagamentosHoje.ValorNota  := IBQUtil1.FieldByName('TBCONT_VALORNOTA').AsCurrency ;
-//      TreeViewContaPag.Items.AddObject(Nil,PagamentosHoje.Fornecedor,PagamentosHoje);
-//      IBQUtil1.Next;
-//    end;
-//    Panel1.Visible:=True;
-//  end;
-end;
 
 function TFrmPrincipal.retornaMespExtenso(mes: string): string;
 begin

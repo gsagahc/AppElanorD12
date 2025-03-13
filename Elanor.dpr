@@ -19,7 +19,8 @@ uses
   uFacadePrazos in 'Facade\uFacadePrazos.pas',
   UPrazo in 'Class\UPrazo.pas',
   UController in 'Controller\UController.pas',
-  UFacade in 'Facade\UFacade.pas';
+  UFacade in 'Facade\UFacade.pas',
+  UStandardObject in 'Class\UStandardObject.pas';
 
 {$R *.res}
 

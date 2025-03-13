@@ -36,7 +36,7 @@ var
   FrmCadClientes: TFrmCadClientes;
 
 implementation
-Uses UFacadePrazos, UBuscarClientes, uFacadeClientes, uMensagens, UPrazo;
+Uses UFacadePrazos, UBuscarClientes, uFacadeClientes, uMensagens, UStandardObject;
 {$R *.dfm}
 
 procedure TFrmCadClientes.FormCreate(Sender: TObject);
@@ -48,7 +48,7 @@ end;
 procedure TFrmCadClientes.loadComboboxPrazos;
 var FacadePrz:TFacadePrazos;
     DataSetPrz:TDataSet;
-    Prazo:TPrazo;
+    ObjetoPrz:TStandardObject;
 begin
   try
     FacadePrz:=TFacadePrazos.Create;
@@ -56,12 +56,9 @@ begin
     //Preencher combobox
     While not DataSetPrz.Eof do
     begin
-      Prazo:=TPrazo.Create(DataSetPrz.FieldByName('ID_PRAZO').AsInteger,
-                           DataSetPrz.FieldByName('TBPRZ_PRAZO01').AsInteger,
-                           DataSetPrz.FieldByName('TBPRZ_PRAZO02').AsInteger,
-                           DataSetPrz.FieldByName('TBPRZ_PRAZO03').AsInteger,
-                           DataSetPrz.FieldByName('TBPRZ_NOME').AsString);
-      FieldComboBoxPrazos.Items.AddObject(Prazo.Nome, Prazo);
+      ObjetoPrz:=TStandardObject.Create(DataSetPrz.FieldByName('ID_PRAZO').AsInteger,
+                                     DataSetPrz.FieldByName('TBPRZ_NOME').AsString);
+      FieldComboBoxPrazos.Items.AddObject(ObjetoPrz.Text, ObjetoPrz);
       DataSetPrz.Next;
     end;
   except

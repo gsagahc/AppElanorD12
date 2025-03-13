@@ -63,7 +63,7 @@ var
   FrmCadPadrao: TFrmCadPadrao;
 
 implementation
-Uses UPrincipal, UBuscarProdutos, uMensagens, Math, UFacade;
+Uses UPrincipal, UBuscarProdutos, uMensagens, Math, UFacade,UStandardObject, UTextFile;
 
 {$R *.dfm}
 
@@ -181,6 +181,8 @@ var i:Integer;
     slFields:TStringList;
     slValues:TStringList;
     strSql:String;
+    Combobox:TFieldComboBox;
+    Objeto:TStandardObject;
 begin
   slFields:=TStringList.Create;
   slFields.Delimiter:=',';
@@ -203,7 +205,9 @@ begin
       if  (Self.Components[i] as TFieldComboBox).Visible then
       begin
         slFields.Add((Self.Components[i] as TFieldComboBox).Field);
-        slValues.Add(''''+(Self.Components[i] as TFieldComboBox).Text+'''');
+        Combobox:=(Self.Components[i] as TFieldComboBox);
+        Objeto:= (Combobox.Items.Objects[Combobox.Items.IndexOf(Combobox.Text)] as TStandardObject);
+        slValues.Add(''''+IntToStr(Objeto.id)+'''');
       end;
     End;
     If (Self.Components[i] is TNumEdit) Then
@@ -211,7 +215,20 @@ begin
       if (Self.Components[i] as TNumEdit).Visible then
       begin
         slFields.Add((Self.Components[i] as TNumEdit).Field);
+        if Pos(',',(Self.Components[i] as TNumEdit).Text) > 0 then
+          (Self.Components[i] as TNumEdit).Text):=TTextFile.
         slValues.Add(''''+(Self.Components[i] as TNumEdit).Text+'''');
+      end;
+    End;
+    If (Self.Components[i] is TFieldSNRadioGroup) Then
+    Begin
+      if (Self.Components[i] as TFieldSNRadioGroup).Visible then
+      begin
+        slFields.Add((Self.Components[i] as TFieldSNRadioGroup).Field);
+        if (Self.Components[i] as TFieldSNRadioGroup).ItemIndex = 0 then
+          slValues.Add('''S''')
+        else
+          slValues.Add('''N''');
       end;
     End;
   end;
