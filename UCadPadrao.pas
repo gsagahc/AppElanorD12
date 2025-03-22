@@ -50,6 +50,7 @@ type
     function generateDeleteSQlFields:string;
     procedure getFieldData(DataSet:TDataSet);
     procedure clearFields;
+
   private
 
     { Private declarations }
@@ -216,7 +217,9 @@ begin
       begin
         slFields.Add((Self.Components[i] as TNumEdit).Field);
         if Pos(',',(Self.Components[i] as TNumEdit).Text) > 0 then
-          (Self.Components[i] as TNumEdit).Text):=TTextFile.
+          (Self.Components[i] as TNumEdit).Text:=
+             StringReplace((Self.Components[i] as TNumEdit).Text, ',', '.', [rfReplaceAll]);
+
         slValues.Add(''''+(Self.Components[i] as TNumEdit).Text+'''');
       end;
     End;
@@ -246,6 +249,11 @@ function TFrmCadPadrao.generateUpdateSQlFields: string;
 var i:Integer;
     slFields:TStringList;
     StrId:String;
+    strSql:String;
+    Combobox:TFieldComboBox;
+    Objeto:TStandardObject;
+    sSimNao:String;
+    NumEditText:string;
 begin
   slFields:=TStringList.Create;
   slFields.Delimiter:=',';
@@ -254,7 +262,41 @@ begin
   begin
     If (Self.Components[i] is TFieldEdit) Then
     Begin
-      slFields.Add((Self.Components[i] as TFieldEdit).Field+'='''+(Self.Components[i] as TFieldEdit).Text+'''');
+      if  (Self.Components[i] as TFieldEdit).Visible then
+        slFields.Add((Self.Components[i] as TFieldEdit).Field+'='''+(Self.Components[i] as TFieldEdit).Text+'''');
+    End;
+    If (Self.Components[i] is TFieldComboBox) Then
+    Begin
+      if (Self.Components[i] as TFieldComboBox).Visible then
+      begin
+        Combobox:=(Self.Components[i] as TFieldComboBox);
+        Objeto:= (Combobox.Items.Objects[Combobox.Items.IndexOf(Combobox.Text)] as TStandardObject);
+        slFields.Add((Self.Components[i] as TFieldComboBox).Field+'='''+IntToStr(Objeto.id)+'''');
+      end;
+    End;
+    If (Self.Components[i] is TNumEdit) Then
+    begin
+      if (Self.Components[i] as TNumEdit).Visible then
+      begin
+
+          if Pos(',',(Self.Components[i] as TNumEdit).Text) > 0 then
+            NumEditText:=
+               StringReplace((Self.Components[i] as TNumEdit).Text, ',', '.', [rfReplaceAll])
+          else
+            NumEditText:= (Self.Components[i] as TNumEdit).Text;
+         slFields.Add((Self.Components[i] as TNumEdit).Field+'='+NumEditText);
+      end;
+    end;
+    If (Self.Components[i] is TFieldSNRadioGroup) Then
+    Begin
+      if (Self.Components[i] as TFieldSNRadioGroup).Visible then
+      begin
+        if (Self.Components[i] as TFieldSNRadioGroup).ItemIndex = 0 then
+          sSimNao:='''S'''
+        else
+          sSimNao:='''N''';
+        slFields.Add((Self.Components[i] as TFieldSNRadioGroup).Field+'='+sSimNao+'');
+      end;
     End;
     If (Self.Components[i] is TIdEdit) Then
     begin
@@ -287,8 +329,12 @@ begin
     Begin
       NumEdit:= (Self.Components[i] as TNumEdit);
       if NumEdit.Visible then
-        NumEdit.Text:= DataSet.FieldByName(NumEdit.Field).AsString;
-
+      begin
+        if  DataSet.FieldByName(NumEdit.Field).AsString<> EmptyStr then
+          NumEdit.Text:= DataSet.FieldByName(NumEdit.Field).AsString
+        else
+          NumEdit.Text:='0';
+      end;
     End;
     If (Self.Components[i] is TIdEdit) Then
     Begin

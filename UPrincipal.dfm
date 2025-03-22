@@ -425,10 +425,20 @@ object FrmPrincipal: TFrmPrincipal
     Top = 0
     Width = 920
     Height = 65
+    ButtonHeight = 57
+    ButtonWidth = 73
     Caption = 'ToolBar1'
     Ctl3D = False
     EdgeBorders = [ebBottom]
     TabOrder = 3
+    object TBClientes: TToolButton
+      Left = 0
+      Top = 0
+      Hint = 'Cadastro de clientes'
+      Caption = 'Clientes'
+      ImageIndex = 0
+      OnClick = TBClientesClick
+    end
   end
   object MainMenu1: TMainMenu
     Left = 40
@@ -2143,5 +2153,9 @@ object FrmPrincipal: TFrmPrincipal
       end>
     Left = 432
     Top = 112
+  end
+  object ImageList3: TImageList
+    Left = 256
+    Top = 88
   end
 end

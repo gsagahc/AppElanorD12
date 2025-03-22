@@ -6,7 +6,7 @@ uses IniFiles, Classes, Forms, System.SysUtils;
 type TTextFile= class
   Function ConsultarBanco(sCaminho:string):String;
   function ConsultarUserNameAndPassword(sCaminho:string):TStringList;
-  function replacePontoeVirgula(sTextoOriginal:string):string;
+  class function replacePontoeVirgula(sTextoOriginal:string):string;
   class function caminhoDaAplicacao:string;
 
 end;  
@@ -59,7 +59,7 @@ begin
 
 end;
 
-function TTextFile.replacePontoeVirgula(sTextoOriginal: string): string;
+class function TTextFile.replacePontoeVirgula(sTextoOriginal: string): string;
 begin
   Result := StringReplace(sTextoOriginal, ',', '.', [rfReplaceAll]);
 end;
