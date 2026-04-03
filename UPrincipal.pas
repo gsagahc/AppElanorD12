@@ -105,6 +105,8 @@ type
     ToolBar1: TToolBar;
     PngImageListBotoes: TPngImageList;
     PngImageCollection1: TPngImageCollection;
+    TBClientes: TToolButton;
+    ImageList3: TImageList;
     procedure Produtos1Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton4Click(Sender: TObject);
@@ -185,6 +187,7 @@ type
     procedure Skin1Click(Sender: TObject);
     procedure Enroladores1Click(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
+    procedure TBClientesClick(Sender: TObject);
   private
        TotalGeral:Currency;
     { Private declarations }
@@ -231,6 +234,16 @@ begin
   FrmCadProdutos.ShowModal;
   FreeAndNil(FrmCadProdutos);
   StatusBar1.Panels.Items[5].Text:=EmptyStr;
+end;
+
+procedure TFrmPrincipal.TBClientesClick(Sender: TObject);
+begin
+  Application.CreateForm(TFrmCadClientes,FrmCadClientes);
+  StatusBar1.Panels.Items[5].Text:= FrmCadClientes.Caption;
+  FrmCadClientes.ShowModal;
+  FreeAndNil(FrmCadClientes);
+  StatusBar1.Panels.Items[5].Text:='';
+
 end;
 
 procedure TFrmPrincipal.ToolButton1Click(Sender: TObject);
