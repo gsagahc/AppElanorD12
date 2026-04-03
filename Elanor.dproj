@@ -106,7 +106,7 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UnitSearchPath>C:\Components\Elanor;C:\Projects\AppElanorD12\Controller;C:\Projects\AppElanorD12\DBConnect;C:\Projects\AppElanorD12\Facade;C:\Projects\AppElanorD12\Parametros;C:\Projects\AppElanorD12\Repository;C:\Projects\AppElanorD12\Utils;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>C:\Components\Elanor;C:\Projects\AppElanorD12\Controller;C:\Projects\AppElanorD12\DBConnect;C:\Projects\AppElanorD12\Facade;C:\Projects\AppElanorD12\Parametros;C:\Projects\AppElanorD12\Repository;C:\Projects\AppElanorD12\Utils;C:\git_repository\AppElanorD12\Class;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -127,41 +127,33 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="uMensagens.pas">
+        <DCCReference Include="GUI\uMensagens.pas">
             <Form>frmMensagens</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UPrincipal.pas">
+        <DCCReference Include="GUI\UPrincipal.pas">
             <Form>FrmPrincipal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Repository\URepositoryProdutos.pas"/>
         <DCCReference Include="Controller\UControllerProducts.pas"/>
         <DCCReference Include="Facade\UFacadeProducts.pas"/>
-        <DCCReference Include="UCadProdutos.pas">
+        <DCCReference Include="GUI\UCadProdutos.pas">
             <Form>FrmCadProdutos</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UCadPadrao.pas">
+        <DCCReference Include="GUI\UCadPadrao.pas">
             <Form>FrmCadPadrao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UCadClientes.pas">
+        <DCCReference Include="GUI\UCadClientes.pas">
             <Form>FrmCadClientes</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UBuscarClientes.pas">
+        <DCCReference Include="GUI\UBuscarClientes.pas">
             <Form>FrmBuscarCli</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Repository\URepositoryClientes.pas"/>
-        <DCCReference Include="UBuscarPadrao.pas">
+        <DCCReference Include="GUI\UBuscarPadrao.pas">
             <Form>FrmBuscarPrd</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UBuscarProdutos.pas">
+        <DCCReference Include="GUI\UBuscarProdutos.pas">
             <Form>FrmBuscarProdutos</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Repository\uRepositoryPrazos.pas"/>
         <DCCReference Include="Controller\UControllerPrazos.pas"/>
@@ -170,6 +162,27 @@
         <DCCReference Include="Controller\UController.pas"/>
         <DCCReference Include="Facade\UFacade.pas"/>
         <DCCReference Include="Class\UStandardObject.pas"/>
+        <DCCReference Include="GUI\UCadPrazos.pas">
+            <Form>FrmCadPrazos</Form>
+        </DCCReference>
+        <DCCReference Include="GUI\UBuscarPrazos.pas">
+            <Form>FrmBuscarPrd1</Form>
+        </DCCReference>
+        <DCCReference Include="GUI\UBuscarPedidos.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI\UCadPedido.pas">
+            <Form>FrmNPedido</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Facade\UFacadePedidos.pas"/>
+        <DCCReference Include="Controller\UControllerPedidos.pas"/>
+        <DCCReference Include="Repository\URepositoryPedidos.pas"/>
+        <DCCReference Include="Class\UEstoque.pas"/>
+        <DCCReference Include="Class\UEndereco.pas"/>
+        <DCCReference Include="Facade\UFacadeClientes.pas"/>
+        <DCCReference Include="Controller\UControllerClientes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

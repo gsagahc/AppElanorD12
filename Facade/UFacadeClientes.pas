@@ -11,11 +11,12 @@ type
    function ReturnDataSetClientsWithLike(sTable,sField,sText:string):TDataSet;
    procedure insertClient(strSql:string);
    procedure updateClientByID(strUpdate:String);
+   function retornaDadosCliente(Nome:String): TDataSet;
   end;
-
 
 implementation
 Uses UControllerClientes;
+
 { TFacadeClientes }
 
 procedure TFacadeClientes.insertClient(strSql: string);
@@ -25,6 +26,14 @@ begin
   Controller.insertClient(StrSql);
   Controller.Destroy;
 
+end;
+
+function TFacadeClientes.retornaDadosCliente(Nome: String): TDataSet;
+var Controller:TControllerClientes;
+begin
+  Controller:=TControllerClientes.Create;
+  Result:=Controller.retornaDadosCliente(Nome);
+  Controller.Destroy;
 end;
 
 function TFacadeClientes.returnDataSetByID(Id:String):TDataSet;

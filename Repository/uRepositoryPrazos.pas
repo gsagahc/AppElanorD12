@@ -16,12 +16,45 @@ Type
    function checkIfPrazoHasBeenUsed(Id:String):Boolean;
    procedure updatePrazo(strSql:String);
    function returnDataSetAllPrazos:TDataSet;
-   function resultPrazoName(Id:string):string;
+   function resultPrazoName(Id:Integer):string;
+   function ReturnDataSetPrazosWithLike(sTable,sField,sText:string):TDataSet;
+   function calculaPrazos(idPrazo:Integer):TDataSet;
+
   End;
 implementation
 Uses UMensagens;
 
 { TRepositoryPrazos }
+
+function TRepositoryPrazos.calculaPrazos(idPrazo: Integer): TDataSet;
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add('SELECT  TBPRZ_PRAZO01,'+
+                                  'TBPRZ_PRAZO02, '+
+                                  'TBPRZ_PRAZO03, '+
+                                  'TBPRZ_PRAZO04,  '+
+                                  'TBPRZ_NOME  '+
+                          ' FROM TB_PRAZOS' );
+    IBQueryResult.Open;
+
+    Result:=IBQueryResult;
+  except
+
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao realizar consulta.unit:URepositoryPrazos, Metodo:calculaPrazos','E',[mbOK], E.Message);
+
+    end;
+  end;
+
+end;
+
 
 function TRepositoryPrazos.checkIfPrazoHasBeenUsed(Id: String): Boolean;
 begin
@@ -43,7 +76,7 @@ begin
 
 end;
 
-function TRepositoryPrazos.resultPrazoName(Id: string): string;
+function TRepositoryPrazos.resultPrazoName(Id:Integer): string;
 var IBQueryResult:TIBQuery;
 begin
   try
@@ -53,7 +86,7 @@ begin
     IBQueryResult.Database:=Self.Database;
     IBQueryResult.SQL.Clear;
     IBQueryResult.SQL.Add('SELECT TBPRZ_NOME FROM TB_PRAZOS WHERE ID_PRAZO=:pId_prazo' );
-    IBQueryResult.ParamByName('pId_prazo').AsString:=id;
+    IBQueryResult.ParamByName('pId_prazo').AsInteger:=id;
     IBQueryResult.Open;
 
     Result:=IBQueryResult.FieldByName('TBPRZ_NOME').AsString;
@@ -76,7 +109,7 @@ begin
     IBQueryResult.FetchAll;
     IBQueryResult.Database:=Self.Database;
     IBQueryResult.SQL.Clear;
-    IBQueryResult.SQL.Add('SELECT * FROM TB_PRAZOS' );
+    IBQueryResult.SQL.Add('SELECT * FROM TB_PRAZOS ORDER BY ID_PRAZO' );
     IBQueryResult.Open;
 
     Result:=IBQueryResult;
@@ -93,6 +126,13 @@ function TRepositoryPrazos.returnDataSetById(Id: String): TDataSet;
 begin
 
 end;
+
+function TRepositoryPrazos.ReturnDataSetPrazosWithLike(sTable, sField,
+  sText: string): TDataSet;
+begin
+  Result:=Self.returnDataSetWithLike(sTable, sField,   sText);
+end;
+
 
 procedure TRepositoryPrazos.updatePrazo(strSql: String);
 begin

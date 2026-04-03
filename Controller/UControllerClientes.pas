@@ -10,6 +10,7 @@ Type
     function returnDataSetClientsWithLike(sTable,sField,sText:string):TDataSet;
     procedure insertClient(strSql:string);
     procedure updateClientByID(strSql: String);
+    function retornaDadosCliente(Nome: String): TDataSet;
  end;
 
 implementation
@@ -21,6 +22,14 @@ Var Repositorio:TRepositoryClientes;
 begin
   Repositorio:=TRepositoryClientes.Create;
   Repositorio.insertClientes(strSql);
+  Repositorio.Destroy;
+end;
+
+function TControllerClientes.retornaDadosCliente(Nome: String): TDataSet;
+Var Repositorio:TRepositoryClientes;
+begin
+  Repositorio:=TRepositoryClientes.Create;
+  Result:= Repositorio.retornaDadosCliente(Nome);
   Repositorio.Destroy;
 end;
 

@@ -7,16 +7,17 @@ Interface
 Type
 { Repository }
   TRepositoryClientes = class(TRepository)
-    private
-    public
-   function returnDataSetById(Id:String):TDataSet;
-   procedure deleteClienteById(Id,StrSql:String);
-   procedure insertClientes(sTrSql:String);
-   function checkProductSameName(sName:String):Boolean;
-   function checkIfClienteHasBeenUsed(Id:String):Boolean;
-   procedure updateCliente(strSql:String);
-   function returnDataSetClientsWithLike(sTable, sField,sText:String):TDataSet;
-   procedure updateClientByID(StrUpdate:String);
+   private
+   public
+     function returnDataSetById(Id:String):TDataSet;
+     procedure deleteClienteById(Id,StrSql:String);
+     procedure insertClientes(sTrSql:String);
+     function checkProductSameName(sName:String):Boolean;
+     function checkIfClienteHasBeenUsed(Id:String):Boolean;
+     procedure updateCliente(strSql:String);
+     function returnDataSetClientsWithLike(sTable, sField,sText:String):TDataSet;
+     procedure updateClientByID(StrUpdate:String);
+     function retornaDadosCliente(Nome:string):TDataSet;
   End;
 
 implementation
@@ -125,4 +126,27 @@ begin
 
 end;
 
+
+function TRepositoryClientes.retornaDadosCliente(Nome: String): TDataSet;
+var IBQueryResult:TIBQuery;
+begin
+  try
+    IBQueryResult:=TIBQuery.Create(nil);
+    IBQueryResult.BufferChunks:=10000;
+    IBQueryResult.FetchAll;
+    IBQueryResult.Database:=Self.Database;
+    IBQueryResult.SQL.Clear;
+    IBQueryResult.SQL.Add('SELECT * FROM TB_CLIENTES '+
+                          ' WHERE TBCLI_NOME LIKE '''+Nome+'%''');
+    IBQueryResult.Open;
+
+    Result:=IBQueryResult;
+  except
+    on E: EDatabaseError do
+    begin
+      tFrmMensagens.Mensagem('Erro ao realizar consulta.unit:URepositoryClientes, Metodo:returnDataSetById','E',[mbOK], E.Message);
+
+    end;
+  end;
+end;
 end.
