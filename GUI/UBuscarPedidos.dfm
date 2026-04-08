@@ -1,7 +1,7 @@
-object Form1: TForm1
+object FormBuscarpedidos: TFormBuscarpedidos
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Buscar pedidos'
   ClientHeight = 458
   ClientWidth = 885
   Color = clBtnFace
@@ -19,7 +19,6 @@ object Form1: TForm1
     Align = alBottom
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitTop = 312
     object DBGrid2: TDBGrid
       Left = 1
       Top = 1
@@ -63,8 +62,6 @@ object Form1: TForm1
     Height = 113
     Align = alTop
     TabOrder = 2
-    ExplicitLeft = 376
-    ExplicitWidth = 185
     object PnlBotoes: TPanel
       Left = 528
       Top = 1

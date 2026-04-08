@@ -296,6 +296,35 @@ object FrmNPedido: TFrmNPedido
       Height = 203
       Align = alRight
       TabOrder = 0
+      ExplicitLeft = 792
+      ExplicitTop = 0
+      object PngSBAdicionarItens: TPngSpeedButton
+        Left = 1
+        Top = 1
+        Width = 53
+        Height = 47
+        Align = alTop
+        ImageIndex = 0
+        Images = FrmPrincipal.PngImageListBotoes
+        StyleName = 'Windows'
+        OnClick = PngSBAdicionarItensClick
+        ExplicitLeft = -2
+        ExplicitTop = 0
+        ExplicitWidth = 57
+      end
+      object PngSBRemoverItens: TPngSpeedButton
+        Left = 1
+        Top = 48
+        Width = 53
+        Height = 46
+        Align = alTop
+        ImageIndex = 5
+        Images = FrmPrincipal.PngImageListBotoes
+        StyleName = 'Windows'
+        OnClick = PngSdBCancelarClick
+        ExplicitLeft = 6
+        ExplicitTop = 54
+      end
     end
     object DBGrid1: TDBGrid
       Left = 1
@@ -337,7 +366,6 @@ object FrmNPedido: TFrmNPedido
         item
           Expanded = False
           FieldName = 'TBITPED_QUANT'
-          ReadOnly = True
           Title.Caption = 'Quantidade'
           Width = 88
           Visible = True
@@ -352,6 +380,7 @@ object FrmNPedido: TFrmNPedido
         item
           Expanded = False
           FieldName = 'TBITPED_VALTOT'
+          ReadOnly = True
           Title.Caption = 'Valor total'
           Width = 86
           Visible = True

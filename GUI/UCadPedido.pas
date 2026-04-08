@@ -60,6 +60,8 @@ type
     fldtPrazo3: TFieldEdit;
     fldtOBS: TFieldEdit;
     PngSdBSalvar: TPngSpeedButton;
+    PngSBAdicionarItens: TPngSpeedButton;
+    PngSBRemoverItens: TPngSpeedButton;
     procedure PNGButton4Click(Sender: TObject);
     procedure PNGButton1Click(Sender: TObject);
     procedure PNGButton5Click(Sender: TObject);
@@ -86,6 +88,7 @@ type
     procedure carregarComboboxPrazos;
     procedure FormCreate(Sender: TObject);
     procedure FieldComboBoxPrazoCloseUp(Sender: TObject);
+    procedure PngSBAdicionarItensClick(Sender: TObject);
   private
     { Private declarations }
     QuantItens:Integer;
@@ -104,7 +107,7 @@ var
   FrmNPedido: TFrmNPedido;
 
 implementation
-Uses UFacadeClientes,uFacadePrazos,uMensagens, Math,UBuscarProdutos, UPrincipal;
+Uses UFacadeClientes,uFacadePrazos,uFacadeProducts,uMensagens, Math,UBuscarProdutos, UPrincipal;
 
 
 {$R *.dfm}
@@ -235,6 +238,34 @@ begin
 //
 //  End;
 
+end;
+
+procedure TFrmNPedido.PngSBAdicionarItensClick(Sender: TObject);
+var  Facade:TFacadeProducts;
+
+begin
+  inherited;
+  Application.CreateForm(TFrmBuscarProdutos, FrmBuscarProdutos);
+  FrmBuscarProdutos.Caption := 'Localizar produtos';
+  FrmBuscarProdutos.ShowModal;
+  If FrmBuscarProdutos.IdItem <> 0  Then
+  begin
+    CDSItensPedido.Insert;
+    CDSItensPedidoID_PRODUTO.AsInteger      := TClientDataSet(Facade.returnDataSetById(
+                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('ID_PRODUTO').AsInteger;
+    CDSItensPedidoNOME_PRODUTO.AsString     := TClientDataSet(Facade.returnDataSetById(
+                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_NOME').AsString;
+    CDSItensPedidoTBITPED_VALUNI.AsCurrency := TClientDataSet(Facade.returnDataSetById(
+                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_PRECOVENDA').AsCurrency;
+    CDSItensPedidoTBITPED_UNIDADE.AsString := TClientDataSet(Facade.returnDataSetById(
+                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_UNIDADE').AsString;
+    CDSItensPedido.Post;
+
+
+
+
+  End;
+  FrmBuscarProdutos.Free;
 end;
 
 procedure TFrmNPedido.PngSdBCancelarClick(Sender: TObject);
@@ -445,9 +476,9 @@ begin
 //    If  not  FrmNPedido.IBTbPedidos.Active then
 //      IBTbPedidos.Open;
 //    IBTbPedidos.Append;
-//    CDSItensPedido.Close;
-//    CDSItensPedido.CreateDataSet;
-//    CDSItensPedido.Open;
+    CDSItensPedido.Close;
+    CDSItensPedido.CreateDataSet;
+    CDSItensPedido.Open;
 //    QuantItens :=0;
 //    IBQPrazos.Open;
 //    IBSQLUTIL.Close;

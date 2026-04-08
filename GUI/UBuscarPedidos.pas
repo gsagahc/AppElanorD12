@@ -8,7 +8,7 @@ uses
   Vcl.ExtCtrls, Vcl.Buttons, PngSpeedButton, Vcl.ComCtrls, Vcl.StdCtrls;
 
 type
-  TForm1 = class(TForm)
+  TFormBuscarpedidos = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
     DBGrid1: TDBGrid;
@@ -30,7 +30,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FormBuscarpedidos: TFormBuscarpedidos;
 
 implementation
 
