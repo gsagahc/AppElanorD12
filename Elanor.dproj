@@ -169,7 +169,7 @@
             <Form>FrmBuscarPrd1</Form>
         </DCCReference>
         <DCCReference Include="GUI\UBuscarPedidos.pas">
-            <Form>Form1</Form>
+            <Form>FormBuscarpedidos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="GUI\UCadPedido.pas">
@@ -183,6 +183,7 @@
         <DCCReference Include="Class\UEndereco.pas"/>
         <DCCReference Include="Facade\UFacadeClientes.pas"/>
         <DCCReference Include="Controller\UControllerClientes.pas"/>
+        <DCCReference Include="Repository\URepositoryEstoque.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

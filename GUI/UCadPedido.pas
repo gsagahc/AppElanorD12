@@ -66,11 +66,10 @@ type
     procedure PNGButton1Click(Sender: TObject);
     procedure PNGButton5Click(Sender: TObject);
     procedure PNGBNovoProdClick(Sender: TObject);
-    Function AtualizaEstoque(pEstoque:TObject ; Quantidade:Real; Operacao:String):Boolean;
+    Function AtualizaEstoque:Boolean;
     procedure FormShow(Sender: TObject);
     Function NumPed:String;
     procedure PNGBRemoverProdClick(Sender: TObject);
-    procedure DBEditCliExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure DBEdit1Exit(Sender: TObject);
     procedure CDSItensPedidoTBITPED_VALUNIChange(Sender: TField);
@@ -89,6 +88,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FieldComboBoxPrazoCloseUp(Sender: TObject);
     procedure PngSBAdicionarItensClick(Sender: TObject);
+    procedure CDSItensPedidoAfterPost(DataSet: TDataSet);
+    procedure PngSBRemoverItensClick(Sender: TObject);
   private
     { Private declarations }
     QuantItens:Integer;
@@ -268,6 +269,30 @@ begin
   FrmBuscarProdutos.Free;
 end;
 
+procedure TFrmNPedido.PngSBRemoverItensClick(Sender: TObject);
+begin
+  If Not CDSItensPedido.IsEmpty Then
+  Begin
+    if (tFrmMensagens.Mensagem('Deleja deletar este produto?','Q',[mbSim, mbNao])) then
+    Begin
+      Try
+        CDSItensPedido.Delete;
+        QuantItens:=QuantItens-1;
+
+
+       atualizarTotal;
+      finally
+
+        if QuantItens <= 0 then
+        begin
+           PngSBRemoverItens.Enabled := False;
+
+        end;
+       End;
+    End;
+  End;
+end;
+
 procedure TFrmNPedido.PngSdBCancelarClick(Sender: TObject);
 begin
   Close;
@@ -370,99 +395,16 @@ end;
 
 
 
-Function TFrmNPedido.AtualizaEstoque(pEstoque:TObject; Quantidade:Real; Operacao:String):Boolean;
-var lEstoque: TEstoque;
-    sMensagem:string;
+Function TFrmNPedido.AtualizaEstoque:Boolean;
+var sMensagem:string;
 begin
   Result:=False;
-//  lEstoque:= TEstoque.Create;
-//  lEstoque:=(pEstoque as TEstoque)  ;
-//  //Se não for cadarço atualizar estoque
-//  if Copy(lEstoque.Nome, 0,5)<>'CADAR' then
-//  begin
-//    try
-//      If Operacao ='D' Then
-//      Begin
-//        If Quantidade <= Estoque.Quantidade    Then
-//        Begin
-//          IBSQLUTIL.Close;
-//          IBSQLUTIL.SQL.Clear;
-//          IBSQLUTIL.Sql.Add('UPDATE TB_ESTOQUE ' +
-//                            ' SET ' +
-//                            ' TBES_QUANTI =TBES_QUANTI - :pQuantidade ' +
-//                            'WHERE ID_PRODUTO=:pIdProduto ' +
-//                            ' AND ID_ESTOQUE= :pIdEstoque ');
-//          IBSQLUTIL.ParamByName('pIdProduto').AsInteger := lEstoque.Id_produto  ;
-//          IBSQLUTIL.ParamByName('pIdEstoque').AsInteger :=lEstoque.Id_estoque ;
-//          IBSQLUTIL.ParamByName('pQuantidade').Value := Quantidade;
-//          IBSQLUTIL.ExecQuery;
-//          Result:=True;
-//        End
-//        Else
-//        Begin
-//          If Quantidade > Estoque.Quantidade  Then
-//          begin
-//           // Se produto for elástico então Result True
-//
-//            IBQUtil.Close;
-//            IBQUtil.SQL.Clear;
-//            IBQUtil.Sql.Add('SELECT TBPRD_NOME '+
-//                            ' FROM TB_PRODUTOS '+
-//                            ' WHERE ID_PRODUTO='+IntToStr(Estoque.Id_produto));
-//            IBQUtil.Open;
-//            sMensagem:= 'A quantidade informada é maior do que o estoque '+
-//                       'atual deste produto, o estoque ficará negativo.' +
-//                       'Deseja continuar?' ;
-//            if  tFrmMensagens.Mensagem(sMensagem,'Q',[mbSIM, mbNAO]) Then
-//            Begin
-//              IBSQLUTIL.Close;
-//              IBSQLUTIL.SQL.Clear;
-//              IBSQLUTIL.Sql.Add('UPDATE TB_ESTOQUE ' +
-//                                ' SET ' +
-//                                ' TBES_QUANTI = :pQuantidade ' +
-//                                ' WHERE ID_PRODUTO=:pIdProduto ' +
-//                                ' AND ID_ESTOQUE= :pIdEstoque ');
-//              IBSQLUTIL.ParamByName('pIdProduto').AsInteger := lEstoque.Id_produto  ;
-//              IBSQLUTIL.ParamByName('pIdEstoque').AsInteger :=lEstoque.Id_estoque ;
-//              IBSQLUTIL.ParamByName('pQuantidade').Value := Estoque.Quantidade - Quantidade;
-//              IBSQLUTIL.ExecQuery;
-//              Result:=True;
-//            end;
-//
-//
-//          end;
-//
-//        End;
-//      end;
-//      If Operacao ='S' Then
-//      Begin
-//        IBSQLUTIL.Close;
-//        IBSQLUTIL.SQL.Clear;
-//        IBSQLUTIL.Sql.Add('UPDATE TB_ESTOQUE ' +
-//                          ' SET ' +
-//                          ' TBES_QUANTI = TBES_QUANTI + :pQuantidade ' +
-//                          'WHERE ID_ESTOQUE=:pIdEstoque ' );
-//        IBSQLUTIL.ParamByName('pIdEstoque').AsInteger :=lEstoque.Id_estoque;
-//        IBSQLUTIL.ParamByName('pQuantidade').Value := lEstoque.Quantidade ;
-//        IBSQLUTIL.ExecQuery;
-//        Result:=True;
-//      End;
-//    except
-//      on E: EDatabaseError do
-//      begin
-//        tFrmMensagens.Mensagem('Erro ao atualizar estoque ' +'AtualizaEstoque ','E',[mbOK], E.message);
-//           FrmPrincipal.IBTMain.Rollback;
-//      end;
-//      on E: EConvertError do
-//      Begin
-//        (tFrmMensagens.Mensagem('Favor digitar apenas números','I',[mbOK]));
-//      End;
-//    end;
-//  end
-//  else
-//    Result:=True;
-//
-//
+//  Se não for cadarço atualizar estoque
+  CDSItensPedido.DisableControls;
+
+
+
+   CDSItensPedido.EnableControls;
 
 
 end;
@@ -526,64 +468,7 @@ end;
 procedure TFrmNPedido.PNGBRemoverProdClick(Sender: TObject);
 var lEstoque: TEstoque;
 begin
-//  If Not CDSItensPedido.IsEmpty Then
-//  Begin
-//
-//    if (tFrmMensagens.Mensagem('Deleja deletar este produto?','Q',[mbSim, mbNao])) then
-//    Begin
-//      Try
-//
-//        lEstoque := TEstoque.Create;
-//        lEstoque.Id_estoque:=CDSItensPedidoID_ESTOQUE.AsInteger;
-//        lEstoque.Quantidade:=CDSItensPedidoTBITPED_QUANT.Value;
-//
-//        AtualizaEstoque(lEstoque ,lEstoque.Quantidade ,'S');
-//        CDSItensPedido.Delete;
-//        QuantItens:=QuantItens-1;
-//
-//
-//       atualizarTotal;
-//      finally
-//        lEstoque.Free;
-//        if QuantItens <= 0 then
-//        begin
-//           PNGBRemoverProd.Enabled := False;
-//           PNGBAtualizar.Enabled   := False;
-//        end;
-//       End;
-//    End;
-//  End;
-end;
 
-procedure TFrmNPedido.DBEditCliExit(Sender: TObject);
-begin
-
-
-//  If DBEditCli.Text <> EmptyStr then
-//  Begin
-//
-//
-//       CalculaPrazos;
-//    End
-//    Else
-//    Begin
-//      IBTbPedidosID_CLIENTE.AsInteger := 0 ;
-//      IBTbPedidosTBPED_ENDERECO.AsString :='' ;
-//      IBTbPedidosTBPED_CIDADE.AsString :=''  ;
-//      IBTbPedidosTBPED_ESTADO.AsString:='';
-//      IBTbPedidosTBPED_VENC01.AsString:='';
-//      IBTbPedidosTBPED_VENC02.AsString:='';
-//      IBTbPedidosTBPED_VENC03.AsString:='';
-//    End;
-//
-//    if (Pos(' ',DBEditCli.Text) =0) Or (Pos(' ', DBEditCli.Text) = Length(DBEditCli.Text))   then
-//    begin
-//      tFrmMensagens.Mensagem('Preencher com ao menos nome e sobrenome','E',[mbOK]);
-//      TDBEdit(Sender).SetFocus;
-//    end;
-//  end
-//  else
- //   LimparDBEdits;
 end;
 
 procedure TFrmNPedido.FieldComboBoxPrazoCloseUp(Sender: TObject);
@@ -662,7 +547,7 @@ procedure TFrmNPedido.CDSItensPedidoTBITPED_VALUNIChange(Sender: TField);
 begin
   try
     CDSItensPedidoTBITPED_VALTOT.AsCurrency :=CDSItensPedidoTBITPED_VALUNI.AsCurrency*CDSItensPedidoTBITPED_QUANT.Value ;
-   
+
   except
     on  E: EDatabaseError do
     begin
@@ -716,7 +601,8 @@ end;
 procedure TFrmNPedido.CDSItensPedidoTBITPED_QUANTChange(Sender: TField);
 begin
 
-   CDSItensPedidoTBITPED_VALTOT.AsCurrency :=CDSItensPedidoTBITPED_VALUNI.AsCurrency*CDSItensPedidoTBITPED_QUANT.Value ;
+  CDSItensPedidoTBITPED_VALTOT.AsCurrency :=CDSItensPedidoTBITPED_VALUNI.AsCurrency*CDSItensPedidoTBITPED_QUANT.Value ;
+
 end;
 
 procedure TFrmNPedido.atualizarTotal;
@@ -744,6 +630,11 @@ end;
 procedure TFrmNPedido.CDSItensPedidoAfterEdit(DataSet: TDataSet);
 begin
   AtualizarTotal;
+end;
+
+procedure TFrmNPedido.CDSItensPedidoAfterPost(DataSet: TDataSet);
+begin
+   atualizarTotal;
 end;
 
 procedure TFrmNPedido.PNGBAtualizarClick(Sender: TObject);

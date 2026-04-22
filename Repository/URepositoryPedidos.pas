@@ -9,7 +9,7 @@ Type
   TRepositoryClientes = class(TRepository)
     private
     public
-
+  procedure salvarPedido(CDSPedido,CDSItens:TDataSet);
   end;
 
 implementation
@@ -17,5 +17,14 @@ implementation
 
 { TRepositoryClientes }
 
+
+{ TRepositoryClientes }
+
+procedure TRepositoryClientes.salvarPedido(CDSPedido, CDSItens: TDataSet);
+var IBQueryResult:TIBQuery;
+begin
+   IBQueryResult:=initQuery;
+
+end;
 
 end.

@@ -32,6 +32,7 @@ function TRepositoryProdutos.checkIfProductHasBeenUsed(Id: String): Boolean;
 var IBQueryResult:TIBQuery;
 begin
   try
+    IBQueryResult:=initQuery;
     IBQueryResult.Close;
     IBQueryResult.SQL.Clear;
     IBQueryResult.SQL.Add('SELECT ID_PRODUTO FROM TB_ITENSPEDIDO '+
@@ -59,11 +60,7 @@ function TRepositoryProdutos.checkProductSameName(sName:String): Boolean;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT TBPRD_NOME '+
                              'FROM TB_PRODUTOS '+
                            'WHERE TBPRD_NOME=:pNome');
@@ -87,11 +84,7 @@ procedure TRepositoryProdutos.deleteProductById(Id,StrSql: String);
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add(StrSql+Id);
     Self.Database.DefaultTransaction.StartTransaction;
     IBQueryResult.ExecSQL;
@@ -111,11 +104,7 @@ var IBQueryResult:TIBQuery;
     Cont:String;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT ID_PRODUTO FROM VIEW_IDPRODUTO');
     IBQueryResult.Open;
     Cont:=IntToStr(IBQueryResult.FieldByName('ID_PRODUTO').AsInteger+1);
@@ -141,11 +130,7 @@ procedure TRepositoryProdutos.insertProducts(sTrSql: string);
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add(sTrSql);
     Self.Database.DefaultTransaction.StartTransaction;
     IBQueryResult.ExecSQL;
@@ -165,11 +150,7 @@ function TRepositoryProdutos.returnDataSetById(Id: String): TDataSet;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT * FROM TB_PRODUTOS WHERE ID_PRODUTO='''+Id+'''' );
     IBQueryResult.Open;
 
@@ -187,11 +168,7 @@ procedure TRepositoryProdutos.updateProductByID(StrUpdate:String);
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add(StrUpdate);
     Self.Database.DefaultTransaction.StartTransaction;
     IBQueryResult.ExecSQL;

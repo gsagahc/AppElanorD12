@@ -296,8 +296,6 @@ object FrmNPedido: TFrmNPedido
       Height = 203
       Align = alRight
       TabOrder = 0
-      ExplicitLeft = 792
-      ExplicitTop = 0
       object PngSBAdicionarItens: TPngSpeedButton
         Left = 1
         Top = 1
@@ -321,7 +319,7 @@ object FrmNPedido: TFrmNPedido
         ImageIndex = 5
         Images = FrmPrincipal.PngImageListBotoes
         StyleName = 'Windows'
-        OnClick = PngSdBCancelarClick
+        OnClick = PngSBRemoverItensClick
         ExplicitLeft = 6
         ExplicitTop = 54
       end
@@ -454,6 +452,7 @@ object FrmNPedido: TFrmNPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'DataSetProvider1'
+    AfterPost = CDSItensPedidoAfterPost
     Left = 176
     Top = 288
     object CDSItensPedidoID_PRODUTO: TIntegerField

@@ -46,11 +46,7 @@ procedure TRepositoryClientes.insertClientes(sTrSql: String);
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add(sTrSql);
     Self.Database.DefaultTransaction.StartTransaction;
     IBQueryResult.ExecSQL;
@@ -71,11 +67,7 @@ function TRepositoryClientes.returnDataSetById(Id: String): TDataSet;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT * FROM TB_CLIENTES WHERE ID_CLIENTE='''+Id+'''' );
     IBQueryResult.Open;
 
@@ -100,11 +92,7 @@ procedure TRepositoryClientes.updateClientByID(StrUpdate: String);
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add(StrUpdate);
     Self.Database.DefaultTransaction.StartTransaction;
     IBQueryResult.ExecSQL;
@@ -131,11 +119,7 @@ function TRepositoryClientes.retornaDadosCliente(Nome: String): TDataSet;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT * FROM TB_CLIENTES '+
                           ' WHERE TBCLI_NOME LIKE '''+Nome+'%''');
     IBQueryResult.Open;

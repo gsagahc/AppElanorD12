@@ -23,7 +23,7 @@ uses
   UStandardObject in 'Class\UStandardObject.pas',
   UCadPrazos in 'GUI\UCadPrazos.pas' {FrmCadPrazos},
   UBuscarPrazos in 'GUI\UBuscarPrazos.pas' {FrmBuscarPrd1},
-  UBuscarPedidos in 'GUI\UBuscarPedidos.pas' {Form1},
+  UBuscarPedidos in 'GUI\UBuscarPedidos.pas' {FormBuscarpedidos},
   UCadPedido in 'GUI\UCadPedido.pas' {FrmNPedido},
   UFacadePedidos in 'Facade\UFacadePedidos.pas',
   UControllerPedidos in 'Controller\UControllerPedidos.pas',
@@ -31,7 +31,8 @@ uses
   UEstoque in 'Class\UEstoque.pas',
   UEndereco in 'Class\UEndereco.pas',
   UFacadeClientes in 'Facade\UFacadeClientes.pas',
-  UControllerClientes in 'Controller\UControllerClientes.pas';
+  UControllerClientes in 'Controller\UControllerClientes.pas',
+  URepositoryEstoque in 'Repository\URepositoryEstoque.pas';
 
 {$R *.res}
 

@@ -30,11 +30,7 @@ function TRepositoryPrazos.calculaPrazos(idPrazo: Integer): TDataSet;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT  TBPRZ_PRAZO01,'+
                                   'TBPRZ_PRAZO02, '+
                                   'TBPRZ_PRAZO03, '+
@@ -80,11 +76,7 @@ function TRepositoryPrazos.resultPrazoName(Id:Integer): string;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT TBPRZ_NOME FROM TB_PRAZOS WHERE ID_PRAZO=:pId_prazo' );
     IBQueryResult.ParamByName('pId_prazo').AsInteger:=id;
     IBQueryResult.Open;
@@ -104,11 +96,7 @@ function TRepositoryPrazos.returnDataSetAllPrazos: TDataSet;
 var IBQueryResult:TIBQuery;
 begin
   try
-    IBQueryResult:=TIBQuery.Create(nil);
-    IBQueryResult.BufferChunks:=10000;
-    IBQueryResult.FetchAll;
-    IBQueryResult.Database:=Self.Database;
-    IBQueryResult.SQL.Clear;
+    IBQueryResult:=initQuery;
     IBQueryResult.SQL.Add('SELECT * FROM TB_PRAZOS ORDER BY ID_PRAZO' );
     IBQueryResult.Open;
 
