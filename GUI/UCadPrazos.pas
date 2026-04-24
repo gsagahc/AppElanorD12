@@ -34,9 +34,15 @@ begin
   FrmBuscarCli.ShowModal;
   If FrmBuscarCli.IdItem <> 0  Then
   begin
-    DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarCli.IdItem));
-    getFieldData(DSPadrao.DataSet);
-    StatusBotoes;
+    try
+      facade:=TFacadePrazos.Create;
+      DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarCli.IdItem));
+      getFieldData(DSPadrao.DataSet);
+
+    finally
+      Facade.Free;
+      StatusBotoes;
+    end;
 
   End;
   FrmBuscarCli.Free;

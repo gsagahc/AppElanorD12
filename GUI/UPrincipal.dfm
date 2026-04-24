@@ -3,12 +3,14 @@ object FrmPrincipal: TFrmPrincipal
   Top = 146
   Align = alClient
   AlphaBlendValue = 100
+  AutoSize = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Sistema de Gest'#227'o Elanor'
-  ClientHeight = 493
-  ClientWidth = 920
-  Color = clBtnFace
+  ClientHeight = 526
+  ClientWidth = 1211
+  Color = clWindow
+  Ctl3D = False
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -16,19 +18,21 @@ object FrmPrincipal: TFrmPrincipal
   Font.Style = []
   KeyPreview = True
   Menu = MainMenu1
-  Position = poScreenCenter
-  PrintScale = poNone
+  Position = poDesktopCenter
+  PrintScale = poPrintToFit
+  RoundedCorners = rcOn
   Scaled = False
   Visible = True
   WindowState = wsMaximized
+  ShowInTaskBar = True
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 13
   object Image1: TImage
     Left = 216
-    Top = 65
-    Width = 488
-    Height = 402
+    Top = 49
+    Width = 779
+    Height = 451
     Align = alClient
     Center = True
     Picture.Data = {
@@ -269,12 +273,14 @@ object FrmPrincipal: TFrmPrincipal
       61BFBE94A2139AE00DBBA94A211B0DF7DBAD734A5108AE0807BC6F4A5109CD70
       4034A5108237A6C36DB6E94A51080001B01B0A728DB6D86D4A5109CD294A2138
       DA9B529442361BEFB75F7D734A5108A5294427FFD9}
+    ExplicitTop = 65
+    ExplicitWidth = 488
     ExplicitHeight = 275
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 467
-    Width = 920
+    Top = 500
+    Width = 1211
     Height = 26
     Panels = <
       item
@@ -301,13 +307,15 @@ object FrmPrincipal: TFrmPrincipal
     SizeGrip = False
   end
   object PanelContaRec: TPanel
-    Left = 704
-    Top = 65
+    Left = 995
+    Top = 49
     Width = 216
-    Height = 402
+    Height = 451
     Align = alRight
     TabOrder = 1
     Visible = False
+    ExplicitTop = 91
+    ExplicitHeight = 409
     object Panel2: TPanel
       Left = 1
       Top = 1
@@ -327,26 +335,28 @@ object FrmPrincipal: TFrmPrincipal
       Left = 1
       Top = 26
       Width = 214
-      Height = 216
+      Height = 265
       Align = alClient
       HideSelection = False
       Images = ImageList2
       Indent = 19
       TabOrder = 1
       OnDblClick = TViewContasDblClick
+      ExplicitHeight = 223
     end
     object MemoDados: TMemo
       Left = 1
-      Top = 259
+      Top = 308
       Width = 214
       Height = 142
       Align = alBottom
       ReadOnly = True
       TabOrder = 2
+      ExplicitTop = 266
     end
     object Panel3: TPanel
       Left = 1
-      Top = 242
+      Top = 291
       Width = 214
       Height = 17
       Align = alBottom
@@ -358,16 +368,19 @@ object FrmPrincipal: TFrmPrincipal
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
+      ExplicitTop = 249
     end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 65
+    Top = 49
     Width = 216
-    Height = 402
+    Height = 451
     Align = alLeft
     TabOrder = 2
     Visible = False
+    ExplicitTop = 91
+    ExplicitHeight = 409
     object Panel4: TPanel
       Left = 1
       Top = 1
@@ -387,26 +400,28 @@ object FrmPrincipal: TFrmPrincipal
       Left = 1
       Top = 26
       Width = 214
-      Height = 216
+      Height = 265
       Align = alClient
       Images = ImageList2
       Indent = 19
       ReadOnly = True
       TabOrder = 1
       OnDblClick = TreeViewContaPagDblClick
+      ExplicitHeight = 223
     end
     object MemoDadosPag: TMemo
       Left = 1
-      Top = 259
+      Top = 308
       Width = 214
       Height = 142
       Align = alBottom
       ReadOnly = True
       TabOrder = 2
+      ExplicitTop = 266
     end
     object Panel5: TPanel
       Left = 1
-      Top = 242
+      Top = 291
       Width = 214
       Height = 17
       Align = alBottom
@@ -418,31 +433,30 @@ object FrmPrincipal: TFrmPrincipal
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
+      ExplicitTop = 249
     end
   end
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 920
-    Height = 65
-    ButtonHeight = 57
-    ButtonWidth = 73
+    Width = 1211
+    Height = 49
+    ButtonHeight = 46
+    ButtonWidth = 57
     Caption = 'ToolBar1'
-    Ctl3D = False
     EdgeBorders = [ebBottom]
+    Images = PngImageListBotoes2
     TabOrder = 3
-    object TBClientes: TToolButton
+    object btn1: TToolButton
       Left = 0
       Top = 0
-      Hint = 'Cadastro de clientes'
-      Caption = 'Clientes'
+      Caption = 'btn1'
       ImageIndex = 0
-      OnClick = TBClientesClick
     end
   end
   object MainMenu1: TMainMenu
-    Left = 40
-    Top = 64
+    Left = 104
+    Top = 240
     object Cadastros1: TMenuItem
       Caption = '&Cadastros'
       object Produtos1: TMenuItem
@@ -1712,8 +1726,8 @@ object FrmPrincipal: TFrmPrincipal
           5F178439A247BA82BD232482E6FFFF0577C2566C68064C320000000049454E44
           AE426082}
       end>
-    Left = 352
-    Top = 112
+    Left = 320
+    Top = 80
   end
   object PngImageCollection1: TPngImageCollection
     Items = <
@@ -2151,11 +2165,76 @@ object FrmPrincipal: TFrmPrincipal
           04F89BCB2D02FCCDE51601FEE6F2FFC14D469D1066EB020000000049454E44AE
           426082}
       end>
-    Left = 432
-    Top = 112
+    Left = 424
+    Top = 80
   end
   object ImageList3: TImageList
     Left = 256
     Top = 88
+  end
+  object PngImageListBotoes2: TPngImageList
+    Height = 32
+    Width = 32
+    PngImages = <
+      item
+        Background = clWindow
+        Name = 'Folder_32x32'
+        PngImage.Data = {
+          89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+          F4000006634944415478DAA5976B6C145514C7FFB333B3B3B3B3EF67DB95B674
+          8B140A52445E46021A9F240A89891FD44F9218454C341AB5C0078D899F4CD40F
+          8604114A7943855AE88B165A4290880151515E06CBB30852FA80B674DB1DCFBD
+          33B36CDB4DEDC69BDE393377EE9EF3BBE79E737A47D0751D56BBF0D387B7E9D9
+          97E81DC4605F02C921BD93864F9AAF0F99B2955D663CFF752BFE47B3EC0AE900
+          D7CE7CAE4726CE46D7DFE7D1F34F1B347F0CA2E4865DF5E16EC7753EE7CE2D43
+          DE35A50564827699928313646776007F7CACE7C6E3805480645224636D04F327
+          2445833F5A0C872C03CEF03045FDDD1D184A0CA08F647230C1257BEEEFBE8D81
+          7BFDEF3EBC74CD975900ACD6730B3CC6832D045D8A91F412C845DC6E3F8FBE5B
+          3710F34A70AB520A4477868CF9AA2175C50B88328738BE772BE6BFB456183FC0
+          EFABF51C0BC098C601204679BFD57E09279AEBF1CCDCE8D8FBEB8B23199E86C3
+          3BD7E3F157D7670990EF869E663FD5C408609F847DEBD760C982D8D8006A10C9
+          D8A368DEB20ECFBE56991D4074820970FF626E0979C65E8ADA0D6BF1C2823C08
+          823026C050DE5CD455ACC39237B66401706A951E210066779417084050A6A2B6
+          E21B3C373F07369B0049B46506700430983B07751BBFC5D237B78E1FE02A0388
+          B9B9D5910E30004A48E97A3C4D31C0B4CA920851143203E43C82BACA0DD90384
+          F35CE6843417B07B9B1B82A304F59515787276046C0718802CD93200F89188CE
+          42FDA68D5902FCB64A0FE56A23002C0FB8605326A37E73259E9815E6007659E4
+          7D644B2A0C60261A366FCA1E2098A3998BD647C40001381E44C396CD58383304
+          1B1138A91E648A83A4E2C340B80C8D5BB76407708501449C691E4883100D00A6
+          F4B119410EE072CA19B72049C5682034038DDBB66509F0EB4A3D4000A9211382
+          3D0B0420AA93B8D279A501CA02C0EB5238C0C88C6400F782D3B17FFB8EEC01FC
+          2167EA657A3A0AA24600C55CE9EC297E6ED4EF5160671EA0076E45E07F48DA19
+          4029F6EFD89525C02F2B755F5035173E3C151980E48C73A5332779791D08781D
+          148486070C00C104F010C05434EDFC2E3B80CB0C20E030B6C00AC47400AD882B
+          9D5EE4E15B10F4A950EC620AC0F20203182080E65DBBB307F0F814C3B8B57CAB
+          0C30005711575A524001496AC301271C1CC058B9150BBAE246223805CD55D559
+          029C5CA9BBBD8AE17E7DF8449BA441764DE44A8B631AF74024E8846A970C0F98
+          6698D4C90383A1C938D67C083D5D5D6D34FC098154FC27C0A593E5BADBADA4DC
+          6F6C85F1BEB75FC2CD1B095C6F6B435E50E10039210DAA6201DC0F4488762473
+          A6F3DFF5F7F6E148C381519EC80CF073B9EE72DB53868DF47340F114E1C0EEBD
+          64CC06B7938A8FCD284279619761D8F4407A26088E30E4079EC2BDFEB338B8A7
+          76FC009A2673C37C9C9D472427EC9E02AEC4E79220927107AD3A3FD7CD8DDBD2
+          8C0B260193923B0EAD64397AAE6FC6C1EAFA71029C28D79D4E99BFB4BCC00014
+          2F0154D74173D878FA85FD2ACF005BFAEAD3029149C9530CCFD4E5E86EDF8496
+          EF1BC60770F1F847BAAACA29F7EB2680C397CF9550BC71A32CFAC37E27041B0C
+          0F401815883201F8A7BD85EE6B9568A9691C1FC085631FE82ECD88013DA91B00
+          3245BA9F0134B241EE814840A39E063062F5ECA2788B117C6805BAAE55A0B5A6
+          697C00E78EBCAF7BA8BC5A003C066415CE0001D4ECC7406208ECFC11A1E88F06
+          356E30B50DC30004DCA533C1A5DC7998275D43EBDE6606201A85C52AB419004E
+          34BE7D3BE0577D76F2358F83243B611340309F9434A197BE96989168C8851C06
+          601B0D60D8177045D05145EF3F2D2E43EB3E9E867E7A35487D8849D29F180570
+          B8EAF5B2EECEBE9609F97E5F800C302F8876155A289FAFE2727B17955E96015E
+          E445DCF7832F1588463CB0D643E29CC38EC545537068DF410650601ABF43BD5B
+          370D0F0360CAAAD7BC5C46B77B0A0A038501DA679162C0159EC0575173E0CC67
+          91A036339E1F58108B7A5C2C1D5545A69A208FFA87C49AA2B9102A8AE3506D0B
+          036095A9CD04C8BC05D6519B207C245A08A06C62710CAEC8046B150B699C7D14
+          9E334117515FC22483D1543BAF11D631ED66671F7DD63970F5F28D0BAFBC57B5
+          9886CE8E1984E9677D13624F28EA5F142F2DC10F4D47EEBCB862FB1C1A3B8D0C
+          8DE62F25C1001751A69431888ECEBE8E9DF5A73654379DAEA1F1A3D413E30648
+          53FC0589776E75F6562E2BAF5E6606D2988D7E5348A2F0AB8AA3375B7EFCAB83
+          EEDB47CEB1ECFE0BF53837EEEB04DB5A0000000049454E44AE426082}
+      end>
+    Left = 376
+    Top = 80
   end
 end

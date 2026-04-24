@@ -27,14 +27,19 @@ procedure TFrmBuscarProdutos.PngSdBBuscarClick(Sender: TObject);
 var StrSQL:String;
     Facade:TFacadeProducts;
 begin
- //  inherited;
-  if Trim(EditNome.Text)<>EmptyStr  Then
-  Begin
-    StrSQL:= ' LIKE ''%'+EditNome.Text+'%''';
-    DSGrid.DataSet:=TDataSet(Facade.ReturnDataSetProductsWithLike('TB_PRODUTOS', 'TBPRD_NOME',StrSQL));
-  End
-  Else
-    DSGrid.DataSet:=TDataSet(Facade.ReturnDataSetProductsWithLike('TB_PRODUTOS', 'TBPRD_NOME',''));
+  try
+    Facade:=TFacadeProducts.Create;
+    if Trim(EditNome.Text)<>EmptyStr  Then
+    Begin
+      StrSQL:= ' LIKE ''%'+EditNome.Text+'%''';
+      DSGrid.DataSet:=TDataSet(Facade.ReturnDataSetProductsWithLike('TB_PRODUTOS', 'TBPRD_NOME',StrSQL));
+
+    End
+    Else
+      DSGrid.DataSet:=TDataSet(Facade.ReturnDataSetProductsWithLike('TB_PRODUTOS', 'TBPRD_NOME',''));
+  finally
+    Facade.Free;
+  end;
 end;
 
 end.

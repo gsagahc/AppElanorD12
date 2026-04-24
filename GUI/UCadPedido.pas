@@ -251,16 +251,22 @@ begin
   FrmBuscarProdutos.ShowModal;
   If FrmBuscarProdutos.IdItem <> 0  Then
   begin
-    CDSItensPedido.Insert;
-    CDSItensPedidoID_PRODUTO.AsInteger      := TClientDataSet(Facade.returnDataSetById(
-                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('ID_PRODUTO').AsInteger;
-    CDSItensPedidoNOME_PRODUTO.AsString     := TClientDataSet(Facade.returnDataSetById(
-                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_NOME').AsString;
-    CDSItensPedidoTBITPED_VALUNI.AsCurrency := TClientDataSet(Facade.returnDataSetById(
-                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_PRECOVENDA').AsCurrency;
-    CDSItensPedidoTBITPED_UNIDADE.AsString := TClientDataSet(Facade.returnDataSetById(
-                                                 IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_UNIDADE').AsString;
-    CDSItensPedido.Post;
+    try
+      Facade:=TFacadeProducts.Create;
+      CDSItensPedido.Insert;
+      CDSItensPedidoID_PRODUTO.AsInteger      := TClientDataSet(Facade.returnDataSetById(
+                                                   IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('ID_PRODUTO').AsInteger;
+      CDSItensPedidoNOME_PRODUTO.AsString     := TClientDataSet(Facade.returnDataSetById(
+                                                   IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_NOME').AsString;
+      CDSItensPedidoTBITPED_VALUNI.AsCurrency := TClientDataSet(Facade.returnDataSetById(
+                                                   IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_PRECOVENDA').AsCurrency;
+      CDSItensPedidoTBITPED_UNIDADE.AsString := TClientDataSet(Facade.returnDataSetById(
+                                                   IntToStr(FrmBuscarProdutos.IdItem))).FieldByName('TBPRD_UNIDADE').AsString;
+      CDSItensPedido.Post;
+    finally
+      Facade.Free;
+
+    end;
 
 
 
@@ -482,23 +488,28 @@ var FacadeCli:TFacadeClientes;
 begin
   if FieldEditCliente.Text<> EmptyStr then
   begin
-    dsCDSCliente:=TClientDataSet(FacadeCli.retornaDadosCliente(FieldEditCliente.Text));
-    if not dsCDSCliente.IsEmpty then
-    begin
-      FieldEditCliente.Text        :=dsCDSCliente.FieldByName('TBCLI_NOME').AsString;
-      FieldEditEndereco.Text       :=dsCDSCliente.FieldByName('TBCLI_ENDERECO').AsString;
-      FieldEditCEP.Text            :=dsCDSCliente.FieldByName('CEP').AsString;
-      FieldEditBairro.Text         :=dsCDSCliente.FieldByName('TBCLI_BAIRRO').AsString;
-      FieldEditCidade.Text         :=dsCDSCliente.FieldByName('TBCLI_CIDADE').AsString;
-      FieldEditUF.Text             :=dsCDSCliente.FieldByName('TBCLI_ESTADO').AsString;
-      FieldComboBoxPrazo.ItemIndex :=
-                                   FieldComboBoxPrazo.Items.IndexOf(FacadePrazo.resultPrazoName(
-                                   dsCDSCliente.FieldByName('ID_PRAZO').AsInteger));
+    try
+      FacadeCli:=TFacadeClientes.Create;
+      dsCDSCliente:=TClientDataSet(FacadeCli.retornaDadosCliente(FieldEditCliente.Text));
+      if not dsCDSCliente.IsEmpty then
+      begin
+        FieldEditCliente.Text        :=dsCDSCliente.FieldByName('TBCLI_NOME').AsString;
+        FieldEditEndereco.Text       :=dsCDSCliente.FieldByName('TBCLI_ENDERECO').AsString;
+        FieldEditCEP.Text            :=dsCDSCliente.FieldByName('CEP').AsString;
+        FieldEditBairro.Text         :=dsCDSCliente.FieldByName('TBCLI_BAIRRO').AsString;
+        FieldEditCidade.Text         :=dsCDSCliente.FieldByName('TBCLI_CIDADE').AsString;
+        FieldEditUF.Text             :=dsCDSCliente.FieldByName('TBCLI_ESTADO').AsString;
+        FieldComboBoxPrazo.ItemIndex :=
+                                     FieldComboBoxPrazo.Items.IndexOf(FacadePrazo.resultPrazoName(
+                                     dsCDSCliente.FieldByName('ID_PRAZO').AsInteger));
 
-     if  FieldComboBoxPrazo.ItemIndex>-1 then
-      CalculaPrazos(TComboboxItem(FieldComboBoxPrazo.Items.Objects
-                   [FieldComboBoxPrazo.Items.IndexOf(FieldComboBoxPrazo.Text)]));
+       if  FieldComboBoxPrazo.ItemIndex>-1 then
+        CalculaPrazos(TComboboxItem(FieldComboBoxPrazo.Items.Objects
+                     [FieldComboBoxPrazo.Items.IndexOf(FieldComboBoxPrazo.Text)]));
 
+      end;
+    finally
+      FacadeCli.Free;
     end;
   end;
 end;
@@ -579,7 +590,13 @@ var Facade:TFacadePrazos;
     ItemCombobox:TComboboxItem;
 begin
   FieldComboBoxPrazo.Clear;
-  DsPrazos:=Facade.returnDataSetAllPrazos;
+  try
+    Facade:=TFacadePrazos.Create;
+    DsPrazos:=Facade.returnDataSetAllPrazos;
+  finally
+    Facade.Free;
+
+  end;
   if not DsPrazos.IsEmpty then
   begin
     while not DsPrazos.Eof do

@@ -349,6 +349,7 @@ begin
                                                 FieldComboBox.Result);
 
         FieldComboBox.ItemIndex:=FieldComboBox.Items.IndexOf(CBoxText);
+        Facade.Free;
       end;
 
     End;

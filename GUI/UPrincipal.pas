@@ -105,8 +105,9 @@ type
     ToolBar1: TToolBar;
     PngImageListBotoes: TPngImageList;
     PngImageCollection1: TPngImageCollection;
-    TBClientes: TToolButton;
     ImageList3: TImageList;
+    PngImageListBotoes2: TPngImageList;
+    btn1: TToolButton;
     procedure Produtos1Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton4Click(Sender: TObject);
@@ -188,6 +189,7 @@ type
     procedure Enroladores1Click(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
     procedure TBClientesClick(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
   private
        TotalGeral:Currency;
     { Private declarations }
@@ -889,6 +891,15 @@ begin
 //  FrmBaixarContasPag.ShowModal;
 //  FreeAndNil(FrmBaixarContasPag);
 //  StatusBar1.Panels.Items[5].Text:='';
+end;
+
+procedure TFrmPrincipal.btn2Click(Sender: TObject);
+begin
+  Application.CreateForm(TFrmNPedido,FrmNPedido);
+  StatusBar1.Panels.Items[5].Text:= FrmNPedido.Caption;
+  FrmNPedido.ShowModal;
+  FreeAndNil(FrmNPedido);
+  StatusBar1.Panels.Items[5].Text:='';
 end;
 
 procedure TFrmPrincipal.imprimircontasapagaremaberto1Click(

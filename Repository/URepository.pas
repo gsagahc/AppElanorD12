@@ -73,6 +73,7 @@ begin
     IBQueryResult.Open;
 
     Result:=IBQueryResult;
+    FreeAndNil(IBQueryResult);
   except
     on E: EDatabaseError do
     begin

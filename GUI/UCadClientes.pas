@@ -61,6 +61,7 @@ begin
       FieldComboBoxPrazos.Items.AddObject(ObjetoPrz.Text, ObjetoPrz);
       DataSetPrz.Next;
     end;
+    FacadePrz.Free;
   except
 
     tFrmMensagens.Mensagem('Erro ao efetuar carregamento do combobox de prazos.unit:uCadClientes, Metodo:loadComboboxPrazos','E',[mbOK]);
@@ -75,6 +76,9 @@ begin
   Application.CreateForm(TFrmBuscarCli, FrmBuscarCli);
   FrmBuscarCli.Caption := 'Localizar cliente';
   FrmBuscarCli.ShowModal;
+  try
+    Facade:=TFacadeClientes.Create;
+
   If FrmBuscarCli.IdItem <> 0  Then
   begin
     DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarCli.IdItem));
@@ -82,6 +86,9 @@ begin
     StatusBotoes;
 
   End;
+  finally
+    Facade.Free;
+  end;
   FrmBuscarCli.Free;
 end;
 
@@ -89,7 +96,7 @@ procedure TFrmCadClientes.PngSdBSalvarClick(Sender: TObject);
 var Facade:TFacadeClientes;
     strSql:String;
 begin
-
+  try
   if Status='I' then
   begin
     strSql:=generateInsertSQlFields;
@@ -99,6 +106,9 @@ begin
   begin
     strSql:=generateUpdateSQlFields;
     Facade.updateClientByID(StrSql);
+  end;
+  finally
+    Facade.Free;
   end;
   inherited;
 

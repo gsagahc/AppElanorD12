@@ -42,15 +42,21 @@ var StrSql:string;
 begin
   if (tFrmMensagens.Mensagem('Deleja deletar o produto exibido?','Q',[mbSim, mbNao])) then
   begin
-    if Facade.checkIfProductHasBeenUsed(Id.Id) then
-       tFrmMensagens.Mensagem('Existem pedidos relacionados a este produto, ele não pode ser deletado?','I',[mbOK])
-    else
-    begin
-      StrSql:=generateDeleteSQlFields;
-      Facade.deleteProductById(Id.Id, StrSql);
-      clearFields;
-    End;
-    StatusBotoes;
+    try
+      Facade:=TFacadeProducts.Create;
+      if Facade.checkIfProductHasBeenUsed(Id.Id) then
+         tFrmMensagens.Mensagem('Existem pedidos relacionados a este produto, ele não pode ser deletado?','I',[mbOK])
+      else
+      begin
+        StrSql:=generateDeleteSQlFields;
+        Facade.deleteProductById(Id.Id, StrSql);
+        clearFields;
+      End;
+    finally
+      StatusBotoes;
+      Facade.Free;
+    end;
+
   end;
 end;
 
@@ -63,12 +69,17 @@ begin
   FrmBuscarProdutos.ShowModal;
   If FrmBuscarProdutos.IdItem <> 0  Then
   begin
-    DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarProdutos.IdItem));
-    getFieldData(DSPadrao.DataSet);
-    StatusBotoes;
+    try
+      Facade:=TFacadeProducts.Create;
+      DSPadrao.DataSet:=Facade.returnDataSetById(IntToStr(FrmBuscarProdutos.IdItem));
+      getFieldData(DSPadrao.DataSet);
+      StatusBotoes;
+    finally
+      Facade.Free;
+    end;
 
   End;
-  FrmBuscarProdutos.Free;
+  FreeAndNil(FrmBuscarProdutos);
 end;
 
 procedure TFrmCadProdutos.PngSdBNovoClick(Sender: TObject);
@@ -81,18 +92,22 @@ procedure TFrmCadProdutos.PngSdBSalvarClick(Sender: TObject);
 Var  Facade:TFacadeProducts;
      strSql:String;
 begin
+  try
+    facade:=TFacadeProducts.Create;
+    if Status='I' then
+    begin
+      strSql:=generateInsertSQlFields;
+      Facade.insertProducts(strSql);
+    end;
+    if Status='A' then
+    begin
+      strSql:=generateUpdateSQlFields;
+      Facade.updateProductByID(StrSql);
+    end;
+  finally
+    Facade.Free;
+  end;
 
-  if Status='I' then
-  begin
-    strSql:=generateInsertSQlFields;
-    Facade.insertProducts(strSql);
-  end;
-  if Status='A' then
-  begin
-    strSql:=generateUpdateSQlFields;
-    Facade.updateProductByID(StrSql);
-  end;
- inherited;
 
 
 end;
